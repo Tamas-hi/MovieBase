@@ -1,15 +1,18 @@
 package hu.bme.aut.moviebase;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.media.Image;
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +24,27 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         img = findViewById(R.id.popcorn_3d);
 
+        final EditText etEmailAddress = findViewById(R.id.email);
+        final EditText etPassword = findViewById(R.id.password);
+        final Button btnSignIn = findViewById(R.id.btnSignIn);
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                if (etEmailAddress.getText().toString().isEmpty()) {
+                    etEmailAddress.requestFocus();
+                    etEmailAddress.setError("Please enter your email address");
+                    return;
+                }
+
+                if (etPassword.getText().toString().isEmpty()) {
+                    etPassword.requestFocus();
+                    etPassword.setError("Please enter your password");
+                }
+
+                // TODO log in
+            }
+        });
     }
 
     @Override
