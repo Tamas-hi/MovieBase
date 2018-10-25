@@ -17,7 +17,7 @@ public class Rotate3dAnimation extends Animation {
     private int width = 0;
     private int height = 0;
 
-    public Rotate3dAnimation(float fromXDegrees, float toXDegrees, float fromYDegrees, float toYDegrees, float fromZDegrees, float toZDegrees) {
+    Rotate3dAnimation(float fromXDegrees, float toXDegrees, float fromYDegrees, float toYDegrees, float fromZDegrees, float toZDegrees) {
         this.fromXDegrees = fromXDegrees;
         this.toXDegrees = toXDegrees;
         this.fromYDegrees = fromYDegrees;
@@ -51,6 +51,6 @@ public class Rotate3dAnimation extends Animation {
 
         matrix.preTranslate(-this.width, -this.height);
         matrix.postTranslate(this.width, this.height);
-    }
+}
 
 }
