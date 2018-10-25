@@ -16,4 +16,9 @@
     </string>
     <string name="sign_in">SIGN IN</string>
     <string name="register">REGISTER</string>
+    <string name="arrowtoright">arrowToRight</string>
+    <string name="arrowtoleft">arrowToLeft</string>
+    <string name="popcorn_3d">popcorn_3d</string>
+    <string name="firstx">firstX</string>
+    <string name="secondx">secondX</string>
 </resources>

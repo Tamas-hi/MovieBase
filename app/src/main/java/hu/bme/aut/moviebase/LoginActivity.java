@@ -11,12 +11,14 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ImageView img;
+    private static final String EMPTY_STRING = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etEmailAddress = findViewById(R.id.email);
         final EditText etPassword = findViewById(R.id.password);
         final Button btnSignIn = findViewById(R.id.btnSignIn);
+        final ImageButton btnX1 = findViewById(R.id.firstX);
+        final ImageButton btnX2 = findViewById(R.id.secondX);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +47,24 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 // TODO log in
+            }
+        });
+
+        btnX1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!(etEmailAddress.getText().toString().isEmpty())){
+                    etEmailAddress.setText(EMPTY_STRING);
+                }
+            }
+        });
+
+        btnX2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!(etPassword.getText().toString().isEmpty())){
+                    etPassword.setText(EMPTY_STRING);
+                }
             }
         });
     }
