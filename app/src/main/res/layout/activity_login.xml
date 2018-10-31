@@ -19,8 +19,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icons8_circled_right_24"
             android:layout_gravity = "start|center_horizontal"
+            android:src="@drawable/icons8_circled_right_24"
             android:contentDescription="@string/arrowtoright"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp" />
@@ -50,8 +50,9 @@
         android:layout_width="81dp"
         android:layout_height="83dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/popcorn_3d"
-        android:contentDescription="@string/popcorn_3d" />
+        android:src="@drawable/popcorn"
+        android:contentDescription="@string/popcorn_3d"
+        android:layout_marginTop="5dp"/>
 
     <FrameLayout
         android:id="@+id/email_login_form"
