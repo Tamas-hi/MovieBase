@@ -10,17 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/movie_background">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center" >
+<LinearLayout
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:gravity="center" >
 
-        <ImageView
-            android:id="@+id/imageButton_readtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/popcorn_3d"
-            android:src="@drawable/popcorn_3d" />
-    </LinearLayout>
+<ImageView
+    android:id="@+id/imageButton_readtext"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popcorn_3d"
+    android:src="@drawable/popcorn_3d" />
 </LinearLayout>
+    </LinearLayout>
