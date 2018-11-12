@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegisterActivity"
+    android:orientation="vertical"
+    android:background="@drawable/movie_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTRATION FORM"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:layout_gravity="center"
+        android:textColor="@color/blackTest"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reg_form_text"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/color_toolbar"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/email_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <EditText
+            android:id="@+id/emailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/email_enter"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:background="@drawable/rounded_edittext"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:importantForAutofill="no" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_height="match_parent"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/color_toolbar"
+            android:layout_width="match_parent">
+
+        <EditText
+            android:id="@+id/passwordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:imeActionId="6"
+            android:imeOptions="actionUnspecified"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:background="@drawable/rounded_edittext"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:importantForAutofill="no" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp">
+        <CheckBox
+            android:id="@+id/cbAgree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/agree_msg"
+                android:textStyle="italic"
+                android:textColor="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingTop="10dp">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="start"
+                android:background="@drawable/rounded_button"
+                android:text="@string/btn_cancel"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                style="@style/AppTheme"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:background="@drawable/rounded_button"
+                android:text="@string/btn_ok"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                style="@style/AppTheme"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>

@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity"
+        <activity
+            android:name=".activities.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <meta-data
             android:name="DATABASE"
@@ -32,6 +32,9 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example" />
+
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.MovieListActivity"></activity>
     </application>
 
 </manifest>

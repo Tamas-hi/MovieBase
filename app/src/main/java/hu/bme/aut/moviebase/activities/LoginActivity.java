@@ -1,6 +1,9 @@
 package hu.bme.aut.moviebase.activities;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import android.widget.ImageView;
 
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
+import hu.bme.aut.moviebase.data.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         final ImageButton btnX2 = findViewById(R.id.secondX);
         final Button btnRegister = findViewById(R.id.RegisterButton);
 
+        final SharedPreferences preferences = getSharedPreferences("Data",Context.MODE_PRIVATE);
+
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +56,19 @@ public class LoginActivity extends AppCompatActivity {
                     etPassword.requestFocus();
                     etPassword.setError("Please enter your password");
                 }
-            // TODO LOG-IN
+
+                String email = preferences.getString("email", "");
+                String password = preferences.getString("password", "");
+
+                if(email.equals(etEmailAddress.getText().toString())) {
+                    if (password.equals(etPassword.getText().toString())) {
+                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+
+
             }
         });
 
@@ -69,6 +87,14 @@ public class LoginActivity extends AppCompatActivity {
                 if(!(etPassword.getText().toString().isEmpty())){
                     etPassword.setText(EMPTY_STRING);
                 }
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -18,4 +18,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reg_form_text">Please fill out the form with the necessary information below.</string>
+    <string name="email_enter">Enter your e-mail here!</string>
+    <string name="enter_password">Enter your password here!</string>
+    <string name="agree_msg">By clicking OK, I agree to share my e-mail address and password with the MovieBase organization.</string>
 </resources>
