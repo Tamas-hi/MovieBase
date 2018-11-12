@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hu.bme.aut.moviebase">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -15,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"
+        <activity android:name=".activities.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +32,6 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example" />
-
-        <activity
-            android:name=".test"
-            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>

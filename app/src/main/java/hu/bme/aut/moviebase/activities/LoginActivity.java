@@ -1,19 +1,22 @@
-package hu.bme.aut.moviebase;
+package hu.bme.aut.moviebase.activities;
 
 
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import hu.bme.aut.moviebase.R;
+import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         final Button btnSignIn = findViewById(R.id.btnSignIn);
         final ImageButton btnX1 = findViewById(R.id.firstX);
         final ImageButton btnX2 = findViewById(R.id.secondX);
+        final Button btnRegister = findViewById(R.id.RegisterButton);
+
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                     etPassword.requestFocus();
                     etPassword.setError("Please enter your password");
                 }
-                // TODO log in
+            // TODO LOG-IN
             }
         });
 
@@ -67,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
