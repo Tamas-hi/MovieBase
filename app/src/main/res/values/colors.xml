@@ -6,4 +6,5 @@
     <color name="blackTest">#000000</color>
     <color name="whiteTest">#ffffff</color>
     <color name="color_toolbar">#ca6200</color>
+    <color name="grey">#808080</color>
 </resources>

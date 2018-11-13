@@ -4,12 +4,8 @@ package hu.bme.aut.moviebase.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -17,19 +13,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
+import android.widget.TextClock;
+import java.lang.Thread;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
-import hu.bme.aut.moviebase.data.User;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ImageView img;
     private static final String EMPTY_STRING = "";
+    private static String USER_KEY = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
+            Thread.sleep(1000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         img = findViewById(R.id.popcorn_3d);
 
@@ -39,13 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         final ImageButton btnX1 = findViewById(R.id.firstX);
         final ImageButton btnX2 = findViewById(R.id.secondX);
         final Button btnRegister = findViewById(R.id.RegisterButton);
+        final TextClock textClock = findViewById(R.id.textClock);
 
-        final SharedPreferences preferences = getSharedPreferences("Data",Context.MODE_PRIVATE);
-
+        textClock.setFormat12Hour(null);
+        textClock.setFormat24Hour("yyyy/MM/dd hh:mm:ss");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+
                 if (etEmailAddress.getText().toString().isEmpty()) {
                     etEmailAddress.requestFocus();
                     etEmailAddress.setError("Please enter your email address");
@@ -55,17 +61,16 @@ public class LoginActivity extends AppCompatActivity {
                 if (etPassword.getText().toString().isEmpty()) {
                     etPassword.requestFocus();
                     etPassword.setError("Please enter your password");
+                    return;
                 }
 
-                String email = preferences.getString("email", "");
-                String password = preferences.getString("password", "");
-
-                if(email.equals(etEmailAddress.getText().toString())) {
+                USER_KEY = etEmailAddress.getText().toString();
+                SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+                String password = preferences.getString(USER_KEY, "");
                     if (password.equals(etPassword.getText().toString())) {
                         Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                         startActivity(intent);
                     }
-                }
 
 
 
@@ -108,15 +113,6 @@ public class LoginActivity extends AppCompatActivity {
             anim.setDuration(2250);
             anim.setRepeatCount(Animation.INFINITE);
             img.startAnimation(anim);
-
-
-            /*RotateAnimation rotate = new RotateAnimation(0.0f,360.f,Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,0.5f);
-            rotate.setDuration(1000);
-            rotate.setInterpolator(new LinearInterpolator());
-            img.startAnimation(rotate);*/
-
-            /*Animation animation = AnimationUtils.loadAnimation(this, R.anim.popcorn_rotate);
-            img.startAnimation(animation);*/
         }
     }
 }

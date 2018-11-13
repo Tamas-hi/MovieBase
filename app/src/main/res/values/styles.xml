@@ -14,4 +14,8 @@
         <item name="android:background">@color/blackTest</item>
     </style>
 
+    <style name="LoadingTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/welcomescreen</item>
+    </style>
+
 </resources>

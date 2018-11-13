@@ -12,13 +12,19 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+import java.util.Objects;
+
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.data.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static String USER_KEY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -28,8 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         final Button btnCancel = findViewById(R.id.btnCancel);
         final Button btnOk = findViewById(R.id.btnOk);
         final CheckBox cbAgree = findViewById(R.id.cbAgree);
-
-        final SharedPreferences preferences = getSharedPreferences("Data", Context.MODE_PRIVATE);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 try {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
+                    }
                 } catch (Exception e) {
                     // TODO: handle exception
                 }
@@ -61,24 +66,28 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 if(!(cbAgree.isChecked())) {
                     Snackbar.make(findViewById(android.R.id.content), "You can not continue with the checkbox unchecked.", Snackbar.LENGTH_LONG).show();
                     return;
                 }
-                if(preferences.contains(emailRegister.getText().toString())) {
+
+                USER_KEY = emailRegister.getText().toString();
+                SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
+
+                File f = new File("/data/data/hu.bme.aut.moviebase/shared_prefs/"+USER_KEY+".xml");
+                if(f.exists()){
                     Toast.makeText(getBaseContext(), "User already exists!", Toast.LENGTH_LONG).show();
-                    return;
                 }
 
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("email", emailRegister.getText().toString());
-                editor.putString("password", passwordRegister.getText().toString());
-                editor.apply();
+                else {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(emailRegister.getText().toString(), passwordRegister.getText().toString());
+                    editor.apply();
 
-                Toast.makeText(getBaseContext(), "Registration was successful!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Registration was successful!", Toast.LENGTH_LONG).show();
 
-                finish();
+                    finish();
+                }
             }
         });
     }
