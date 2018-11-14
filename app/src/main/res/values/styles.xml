@@ -9,13 +9,9 @@
         <item name="colorAccent">#ca6200</item>
         <item name="android:textColorHint">#8A000000</item>
     </style>
-
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/black</item>
-    </style>
-
-    <style name="LoadingTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="LoadingTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/welcomescreen</item>
     </style>
-
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -15,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import java.lang.Thread;
+import java.util.Objects;
+
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
 
@@ -33,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         img = findViewById(R.id.popcorn_3d);
 
@@ -44,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         final ImageButton btnX2 = findViewById(R.id.secondX);
         final Button btnRegister = findViewById(R.id.RegisterButton);
         final TextClock textClock = findViewById(R.id.textClock);
+        final Toolbar loginToolbar = findViewById(R.id.toolbarLogin);
+        //setSupportActionBar(loginToolbar);
+        //Objects.requireNonNull(getSupportActionBar()).setTitle(null);
 
         textClock.setFormat12Hour(null);
         textClock.setFormat24Hour("yyyy/MM/dd hh:mm:ss");
