@@ -57,6 +57,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
 
+                if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
+                    Intent intent = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                    startActivity(intent);
+                }
+
                 if (etEmailAddress.getText().toString().isEmpty()) {
                     etEmailAddress.requestFocus();
                     etEmailAddress.setError("Please enter your email address");
