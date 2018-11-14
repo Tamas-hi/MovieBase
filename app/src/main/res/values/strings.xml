@@ -22,4 +22,14 @@
     <string name="title_activity_admin_panel">AdminPanelActivity</string>
     <string name="title_activity_test123">test123</string>
     <string name="deleteitem">deleteItem</string>
+    <string name="new_movie">New Movie</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string-array name="category_items">
+        <item>Action</item>
+        <item>Documentary</item>
+        <item>Horror</item>
+        <item>Comedy</item>
+        <item>Romance</item>
+    </string-array>
 </resources>
