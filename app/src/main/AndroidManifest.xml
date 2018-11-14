@@ -11,8 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/LoadingTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/LoadingTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.AdminPanelActivity"></activity>
+        <activity android:name=".activities.MovieListActivity" />
+        <activity android:name=".activities.DetailsActivity"></activity>
     </application>
 
 </manifest>

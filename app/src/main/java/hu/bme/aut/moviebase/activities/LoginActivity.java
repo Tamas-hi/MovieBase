@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import java.lang.Thread;
-import java.util.Objects;
 
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
@@ -47,8 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button btnRegister = findViewById(R.id.RegisterButton);
         final TextClock textClock = findViewById(R.id.textClock);
         final Toolbar loginToolbar = findViewById(R.id.toolbarLogin);
-        //setSupportActionBar(loginToolbar);
-        //Objects.requireNonNull(getSupportActionBar()).setTitle(null);
 
         textClock.setFormat12Hour(null);
         textClock.setFormat24Hour("yyyy/MM/dd HH:mm:ss");
@@ -58,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(final View view) {
 
                 if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
-                    Intent intent = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                     startActivity(intent);
                 }
 
@@ -78,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 String password = preferences.getString(USER_KEY, "");
                     if (password.equals(etPassword.getText().toString())) {
-                        Intent intent = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                         startActivity(intent);
                     }
 

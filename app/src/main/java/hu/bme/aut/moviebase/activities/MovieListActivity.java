@@ -1,8 +1,8 @@
 package hu.bme.aut.moviebase.activities;
 
 import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,23 +11,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Objects;
 
+import github.nisrulz.recyclerviewhelper.RVHItemClickListener;
 import hu.bme.aut.moviebase.R;
-import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
 import hu.bme.aut.moviebase.data.Movie;
 import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
-public class AdminPanelActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener {
+public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener{
 
     private RecyclerView recyclerView;
     private MovieAdapter adapter;
@@ -37,7 +40,7 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_panel);
+        setContentView(R.layout.activity_movie_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
@@ -53,6 +56,7 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
         database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").build();
 
         initRecyclerView();
+
     }
 
     @Override
@@ -79,10 +83,13 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        ItemTouchHelper.Callback callback =
-                new MovieTouchHelperCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        recyclerView.addOnItemTouchListener(new RVHItemClickListener(this, new RVHItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MovieListActivity.this, DetailsActivity.class);
+                startActivity(intent);
+            }
+        }));
     }
 
     private void loadItemsInBackground() {
@@ -125,7 +132,7 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
 
             @Override
             protected void onPostExecute(Boolean isSuccessful) {
-                Log.d("AdminPanelActivity", "Movie update was successful");
+                Log.d("MovieListActivity", "Movie update was successful");
             }
         }.execute();
     }
