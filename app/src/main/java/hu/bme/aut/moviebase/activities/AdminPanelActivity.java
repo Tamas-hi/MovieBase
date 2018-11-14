@@ -2,13 +2,16 @@ package hu.bme.aut.moviebase.activities;
 
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 import hu.bme.aut.moviebase.R;
+import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
 import hu.bme.aut.moviebase.data.Movie;
 import hu.bme.aut.moviebase.data.MovieDatabase;
@@ -60,24 +64,11 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*// Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
-
         switch(item.getItemId()){
             case R.id.action_settings:
                 adapter.deleteAllItem();
                 onAllItemDeleted();
         }
-
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -87,6 +78,11 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
             loadItemsInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback =
+                new MovieTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
     }
 
     private void loadItemsInBackground() {
@@ -160,5 +156,20 @@ public class AdminPanelActivity extends AppCompatActivity implements NewMovieDia
                 adapter.addMovie(movie);
             }
         }.execute();
+    }
+
+    @Override
+    public void onBackPressed(){
+        new AlertDialog.Builder(this)
+                .setTitle("Exit")
+                .setMessage("Are you sure you want to log off?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No",null)
+                .show();
     }
 }

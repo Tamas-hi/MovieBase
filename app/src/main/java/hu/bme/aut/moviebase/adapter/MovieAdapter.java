@@ -1,5 +1,6 @@
 package hu.bme.aut.moviebase.adapter;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +11,20 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import hu.bme.aut.moviebase.R;
+import hu.bme.aut.moviebase.UI_Helper.TouchHelperNotifier;
 import hu.bme.aut.moviebase.data.Movie;
+import hu.bme.aut.moviebase.data.MovieDatabase;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier {
 
     private final List<Movie> items;
 
     private MovieItemClickListener listener;
+
 
     public MovieAdapter(MovieItemClickListener listener){
         this.listener = listener;
@@ -47,6 +52,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public int getItemCount(){
         return items.size();
     }
+
+    @Override
+    public void onItemDismissed(final int position) {
+        items.remove(position);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemMoved(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(items, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(items, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
 
     public interface MovieItemClickListener{
         void onItemChanged(Movie item);
@@ -101,5 +127,4 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         }
     }
-
 }
