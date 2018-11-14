@@ -6,7 +6,8 @@ import android.arch.persistence.room.TypeConverters;
 
 @Database(
         entities = {Movie.class},
-        version = 1
+        version = 1,
+        exportSchema = false
 )
 @TypeConverters(value = {Movie.Category.class})
 public abstract class MovieDatabase extends RoomDatabase{

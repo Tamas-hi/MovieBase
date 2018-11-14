@@ -19,9 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Karib tenger kalózai"
-        android:textColor="@color/orange"
+        android:textColor="@color/red"
         android:textStyle="bold"
-        android:textSize="28sp"/>
+        android:textSize="28sp" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -30,9 +30,18 @@
         android:layout_height="wrap_content"
         android:numStars="5"
         android:stepSize="0.5"
+        android:isIndicator="true"
         />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="end"
+        android:layout_gravity="end"
+        android:layout_marginStart="10dp">
 
     <TextView
         android:id="@+id/tvPrice"
@@ -41,7 +50,9 @@
         tools:text="340 ft"
         android:layout_gravity="center_vertical"
         android:textSize="20sp"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        />
 
     <ImageButton
         android:id="@+id/MovieRemoveButton"
@@ -50,7 +61,9 @@
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_delete_grey600_48dp"
-        android:contentDescription="@string/deleteitem" />
+        android:src="@drawable/ic_delete_forever"
+        android:contentDescription="@string/deleteitem"
+        />
+</LinearLayout>
 
 </LinearLayout>

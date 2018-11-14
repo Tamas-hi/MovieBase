@@ -14,11 +14,14 @@ public interface MovieDao {
     List<Movie> getAll();
 
     @Insert
-    long insert (Movie movies);
+    long insert(Movie movies);
 
     @Update
-    void update (Movie movie);
+    void update(Movie movie);
 
     @Delete
     void deleteItem(Movie movie);
+
+    @Query("DELETE FROM movie")
+    void deleteAll();
 }

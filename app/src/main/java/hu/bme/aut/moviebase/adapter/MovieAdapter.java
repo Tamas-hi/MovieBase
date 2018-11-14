@@ -9,8 +9,6 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +50,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public interface MovieItemClickListener{
         void onItemChanged(Movie item);
+        void onItemDeleted(Movie item);
+        void onAllItemDeleted();
     }
 
     public void addMovie(Movie movie){
         items.add(movie);
         notifyItemInserted(items.size() - 1);
+    }
+
+    public void deleteItem(Movie movie){
+        items.remove(movie);
+        notifyDataSetChanged();
+    }
+
+    public void deleteAllItem(){
+        items.clear();
+        notifyDataSetChanged();
     }
 
     public void update(List<Movie> movies){
@@ -80,8 +90,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movieRating = itemView.findViewById(R.id.ratingBar);
             priceTextView = itemView.findViewById(R.id.tvPrice);
             removeButton = itemView.findViewById(R.id.MovieRemoveButton);
+
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteItem(movie);
+                    listener.onItemDeleted(movie);
+                }
+            });
+
         }
     }
-
 
 }

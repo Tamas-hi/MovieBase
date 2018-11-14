@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         //Objects.requireNonNull(getSupportActionBar()).setTitle(null);
 
         textClock.setFormat12Hour(null);
-        textClock.setFormat24Hour("yyyy/MM/dd hh:mm:ss");
+        textClock.setFormat24Hour("yyyy/MM/dd HH:mm:ss");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

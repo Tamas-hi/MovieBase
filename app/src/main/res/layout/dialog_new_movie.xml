@@ -4,23 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dip">
+    android:padding="24dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Movie name"/>
+        android:text="Movie name"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/MovieNameEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:maxLength="15"
+        android:textColor="@color/orange"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:text="Category"/>
+        android:layout_marginTop="16dp"
+        android:text="Category"
+        android:textColor="@color/black"/>
 
     <Spinner
         android:id="@+id/MovieCategorySpinner"
@@ -30,38 +34,44 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:text="Length (in minutes)"/>
+        android:layout_marginTop="16dp"
+        android:text="Length (in minutes)"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/MovieLengthEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:textColor="@color/orange"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:text="Description" />
+        android:layout_marginTop="16dp"
+        android:text="Description"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/MovieDescriptionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/orange"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:text="Price"/>
+        android:layout_marginTop="16dp"
+        android:text="Price"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/MoviePriceEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:textColor="@color/orange"/>
 
 
 </LinearLayout>

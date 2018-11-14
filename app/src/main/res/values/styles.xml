@@ -8,6 +8,8 @@
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">#ca6200</item>
         <item name="android:textColorHint">#8A000000</item>
+        <item name="android:itemBackground">@color/black</item>
+        <item name="android:textColor">@color/orange</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -18,5 +20,11 @@
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/orange</item>
         <item name="colorControlActivated">@color/color_toolbar</item>
+    </style>
+
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+    <item name="android:textColorPrimary">@color/orange</item>
+        <item name="android:textColorSecondary">@color/orange</item>
+        <item name="actionMenuTextColor">@color/orange</item>
     </style>
 </resources>
