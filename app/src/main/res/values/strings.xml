@@ -15,9 +15,6 @@
     <string name="register_string">Register your account here!</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">CANCEL</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="reg_form_text">Please fill out the form with the necessary information below.</string>
     <string name="email_enter">Enter your e-mail here!</string>
     <string name="enter_password">Enter your password here!</string>

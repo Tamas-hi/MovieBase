@@ -11,7 +11,7 @@
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/blackTest</item>
+        <item name="android:background">@color/black</item>
     </style>
 
     <style name="LoadingTheme" parent="Theme.AppCompat.Light.NoActionBar">

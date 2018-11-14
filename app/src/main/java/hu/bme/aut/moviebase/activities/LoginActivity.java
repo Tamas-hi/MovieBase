@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 String password = preferences.getString(USER_KEY, "");
                     if (password.equals(etPassword.getText().toString())) {
-                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, AdminPanelActivity.class);
                         startActivity(intent);
                     }
 

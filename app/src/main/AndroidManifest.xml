@@ -34,7 +34,7 @@
             android:value="com.example" />
 
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.MovieListActivity"></activity>
+        <activity android:name=".activities.AdminPanelActivity"></activity>
     </application>
 
 </manifest>

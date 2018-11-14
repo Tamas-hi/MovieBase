@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                         imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                     }
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    e.printStackTrace();
                 }
 
                 if (emailRegister.getText().toString().isEmpty()) {

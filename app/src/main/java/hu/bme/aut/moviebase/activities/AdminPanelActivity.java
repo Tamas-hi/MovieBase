@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import hu.bme.aut.moviebase.R;
 
-public class MovieListActivity extends AppCompatActivity {
+public class AdminPanelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_move_list);
+        setContentView(R.layout.activity_movie_list);
     }
 }
