@@ -21,4 +21,5 @@
     <string name="agree_msg">By clicking OK, I agree to share my e-mail address and password with the MovieBase organization.</string>
     <string name="title_activity_admin_panel">AdminPanelActivity</string>
     <string name="title_activity_test123">test123</string>
+    <string name="deleteitem">deleteItem</string>
 </resources>
