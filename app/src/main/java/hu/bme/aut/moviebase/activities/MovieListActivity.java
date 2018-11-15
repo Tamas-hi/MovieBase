@@ -32,7 +32,6 @@ import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
 public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener{
 
-    private RecyclerView recyclerView;
     private MovieAdapter adapter;
     private MovieDatabase database;
     private boolean AdminLogOn = true;
@@ -41,11 +40,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +60,6 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -77,7 +75,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     }
 
     private void initRecyclerView() {
-        recyclerView = findViewById(R.id.MainRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
         adapter = new MovieAdapter(this);
             loadItemsInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

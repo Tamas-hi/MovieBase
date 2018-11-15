@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         final ImageButton btnX2 = findViewById(R.id.secondX);
         final Button btnRegister = findViewById(R.id.RegisterButton);
         final TextClock textClock = findViewById(R.id.textClock);
-        final Toolbar loginToolbar = findViewById(R.id.toolbarLogin);
 
         textClock.setFormat12Hour(null);
         textClock.setFormat24Hour("yyyy/MM/dd HH:mm:ss");
@@ -54,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
 
+                // admin LOGON
                 if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
                     Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                     startActivity(intent);
@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                // user LOGON
                 USER_KEY = etEmailAddress.getText().toString();
                 SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 String password = preferences.getString(USER_KEY, "");
