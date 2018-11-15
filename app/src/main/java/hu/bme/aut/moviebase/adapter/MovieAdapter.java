@@ -20,11 +20,12 @@ import java.util.List;
 import github.nisrulz.recyclerviewhelper.RVHAdapter;
 import github.nisrulz.recyclerviewhelper.RVHViewHolder;
 import hu.bme.aut.moviebase.R;
+import hu.bme.aut.moviebase.UI_Helper.TouchHelperNotifier;
 import hu.bme.aut.moviebase.activities.DetailsActivity;
 import hu.bme.aut.moviebase.activities.MovieListActivity;
 import hu.bme.aut.moviebase.data.Movie;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements RVHAdapter {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier {
 
     private final List<Movie> items;
     private MovieItemClickListener listener;
@@ -59,12 +60,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onItemDismiss(int position, int direction) {
-    }
-
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        return false;
+    public void onItemDismissed(int position) {
+        listener.onItemDeleted(items.get(position));
+        items.remove(position);
+        notifyItemRemoved(position);
     }
 
 
@@ -95,7 +94,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder implements RVHViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameTextView;
         RatingBar movieRating;
@@ -120,16 +119,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     listener.onItemDeleted(movie);
                 }
             });*/
-
-        }
-
-        @Override
-        public void onItemClear() {
-
-        }
-
-        @Override
-        public void onItemSelected(int actionstate) {
 
         }
     }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 import github.nisrulz.recyclerviewhelper.RVHItemClickListener;
 import hu.bme.aut.moviebase.R;
+import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
 import hu.bme.aut.moviebase.data.Movie;
 import hu.bme.aut.moviebase.data.MovieDatabase;
@@ -80,6 +82,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             loadItemsInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback =
+                new MovieTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.addOnItemTouchListener(new RVHItemClickListener(this, new RVHItemClickListener.OnItemClickListener() {
             @Override
