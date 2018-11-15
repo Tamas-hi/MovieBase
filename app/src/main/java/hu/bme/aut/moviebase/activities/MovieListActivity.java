@@ -13,18 +13,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.view.View;
 
 import java.util.List;
 import java.util.Objects;
 
 import github.nisrulz.recyclerviewhelper.RVHItemClickListener;
+import github.nisrulz.recyclerviewhelper.RVHItemTouchHelperCallback;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
@@ -88,10 +85,15 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 
+        ItemTouchHelper.Callback callback2 = new RVHItemTouchHelperCallback(adapter,true,true,true);
+        ItemTouchHelper touchHelper2 = new ItemTouchHelper(callback);
+        touchHelper2.attachToRecyclerView(recyclerView);
+
         recyclerView.addOnItemTouchListener(new RVHItemClickListener(this, new RVHItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(MovieListActivity.this, DetailsActivity.class);
+                intent.putExtra("MovieItem",adapter.getMovie(position));
                 startActivity(intent);
             }
         }));

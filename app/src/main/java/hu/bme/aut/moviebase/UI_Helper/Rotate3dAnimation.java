@@ -1,10 +1,9 @@
 package hu.bme.aut.moviebase.UI_Helper;
 
-import android.view.animation.Animation;
-
-import android.view.animation.Transformation;
 import android.graphics.Camera;
 import android.graphics.Matrix;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 
 public class Rotate3dAnimation extends Animation {
     private final float fromXDegrees;

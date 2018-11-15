@@ -4,12 +4,60 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverter;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 @Entity(tableName = "movie")
-public class Movie {
+public class Movie implements Parcelable {
+
+    public Movie(){
+
+    }
+    private Movie(Parcel in){
+        //id = in.readLong();
+        name = in.readString();
+        //category = (Category) in.readSerializable();
+        //length = in.readInt();
+        //description = in.readString();
+        //rating = in.readFloat();
+        //price = in.readInt();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        /*if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }*/
+        dest.writeString(name);
+        //dest.writeSerializable(category);
+        //dest.writeInt(length);
+        //dest.writeString(description);
+        //dest.writeFloat(rating);
+        //dest.writeInt(price);
+    }
     // id, name, category, length, description, rating, price
 
-    public enum Category {
+    public enum Category{
         ACTION, DOCUMENTARY, HORROR, COMEDY, ROMANCE;
 
 
