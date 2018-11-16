@@ -19,7 +19,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Objects;
@@ -81,16 +83,17 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
         adapter = new MovieAdapter(this);
-            loadItemsInBackground();
+        loadItemsInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
 
         ItemTouchHelper.Callback callback =
                 new MovieTouchHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 
-        ItemTouchHelper.Callback callback2 = new RVHItemTouchHelperCallback(adapter,true,true,true);
+        /*ItemTouchHelper.Callback callback2 = new RVHItemTouchHelperCallback(adapter,true,true,true);
         ItemTouchHelper touchHelper2 = new ItemTouchHelper(callback);
         touchHelper2.attachToRecyclerView(recyclerView);
 
@@ -101,7 +104,8 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 intent.putExtra("MovieItem",adapter.getMovie(position));
                 startActivity(intent);
             }
-        }));
+        }));*/
+
     }
 
     private void loadItemsInBackground() {

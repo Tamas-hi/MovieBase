@@ -1,26 +1,36 @@
 package hu.bme.aut.moviebase.adapter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import github.nisrulz.recyclerviewhelper.RVHAdapter;
 import github.nisrulz.recyclerviewhelper.RVHViewHolder;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.TouchHelperNotifier;
+import hu.bme.aut.moviebase.activities.DetailsActivity;
+import hu.bme.aut.moviebase.activities.MovieListActivity;
+import hu.bme.aut.moviebase.activities.RegisterActivity;
 import hu.bme.aut.moviebase.data.Movie;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier, RVHAdapter {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
 
     private final List<Movie> items;
     private MovieItemClickListener listener;
@@ -63,16 +73,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyItemRemoved(position);
     }
 
-    @Override
-    public void onItemDismiss(int position, int direction) {
-
-    }
-
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        return false;
-    }
-
 
     public interface MovieItemClickListener{
         void onItemChanged(Movie item);
@@ -105,11 +105,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return items;
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder implements RVHViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder{
 
         TextView nameTextView;
         RatingBar movieRating;
         TextView priceTextView;
+        Button btnBuy;
 
         Movie movie;
 
@@ -118,16 +119,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             nameTextView = itemView.findViewById(R.id.tvMovieName);
             movieRating = itemView.findViewById(R.id.ratingBar);
             priceTextView = itemView.findViewById(R.id.tvPrice);
-        }
+            btnBuy = itemView.findViewById(R.id.btnBuy);
 
-        @Override
-        public void onItemClear() {
+            btnBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteItem(movie);
+                    listener.onItemDeleted(movie);
+                }
+            });
 
-        }
-
-        @Override
-        public void onItemSelected(int actionstate) {
-
+            nameTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra("MovieItem",movie);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
