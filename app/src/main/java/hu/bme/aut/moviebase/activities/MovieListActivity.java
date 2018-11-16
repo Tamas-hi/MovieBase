@@ -1,13 +1,9 @@
 package hu.bme.aut.moviebase.activities;
 
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.Rating;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,32 +15,31 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Objects;
 
-import github.nisrulz.recyclerviewhelper.RVHItemClickListener;
-import github.nisrulz.recyclerviewhelper.RVHItemTouchHelperCallback;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
+import hu.bme.aut.moviebase.data.MoneyInterface;
 import hu.bme.aut.moviebase.data.Movie;
 import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
-public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener{
+public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface {
 
     private MovieAdapter adapter;
     private MovieDatabase database;
     private boolean AdminLogOn = true;
+    TextView tvMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
+        tvMoney = findViewById(R.id.tvMoney);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
@@ -82,7 +77,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this);
+        adapter = new MovieAdapter(this, this);
         loadItemsInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -194,5 +189,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 })
                 .setNegativeButton("No",null)
                 .show();
+    }
+
+    @Override
+    public void onBuyClick(String money) {
+        tvMoney.setText(money);
     }
 }

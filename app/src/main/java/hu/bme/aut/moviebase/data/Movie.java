@@ -7,8 +7,6 @@ import android.arch.persistence.room.TypeConverter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 @Entity(tableName = "movie")
 public class Movie implements Parcelable {
 
