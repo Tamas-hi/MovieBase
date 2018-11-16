@@ -108,7 +108,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         TextView nameTextView;
         RatingBar movieRating;
         TextView priceTextView;
-        //ImageButton removeButton;
         TextView lengthTextView;
 
         Movie movie;
@@ -118,17 +117,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             nameTextView = itemView.findViewById(R.id.tvMovieName);
             movieRating = itemView.findViewById(R.id.ratingBar);
             priceTextView = itemView.findViewById(R.id.tvPrice);
-            //removeButton = itemView.findViewById(R.id.MovieRemoveButton);
             lengthTextView = itemView.findViewById(R.id.tvLength);
-
-            /*removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    deleteItem(movie);
-                    listener.onItemDeleted(movie);
-                }
-            });*/
-
         }
 
         @Override

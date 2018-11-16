@@ -10,9 +10,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 import hu.bme.aut.moviebase.R;
@@ -27,6 +29,7 @@ public class NewMovieDialogFragment extends DialogFragment {
     private EditText lengthEditText;
     private EditText descriptionEditText;
     private EditText priceEditText;
+    private NumberPicker numberPicker;
 
     public interface NewMovieDialogListener{
         void onMovieCreated(Movie newMovie);
@@ -63,13 +66,18 @@ public class NewMovieDialogFragment extends DialogFragment {
     }
 
     private View getContentView(){
-        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_movie, null);
+        final ViewGroup nullParent= null;
+        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_movie,nullParent);
         nameEditText = contentView.findViewById(R.id.MovieNameEditText);
         categorySpinner = contentView.findViewById(R.id.MovieCategorySpinner);
         categorySpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.category_items)));
         lengthEditText = contentView.findViewById(R.id.MovieLengthEditText);
         descriptionEditText = contentView.findViewById(R.id.MovieDescriptionEditText);
         priceEditText = contentView.findViewById(R.id.MoviePriceEditText);
+        numberPicker = contentView.findViewById(R.id.RatingPicker);
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(5);
+        numberPicker.setWrapSelectorWheel(true);
         return contentView;
     }
 
@@ -92,6 +100,7 @@ public class NewMovieDialogFragment extends DialogFragment {
         }catch(NumberFormatException e){
             movie.price = 0;
         }
+        movie.rating = numberPicker.getValue();
         return movie;
     }
 
