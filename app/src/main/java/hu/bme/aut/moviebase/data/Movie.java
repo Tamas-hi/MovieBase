@@ -19,9 +19,9 @@ public class Movie implements Parcelable {
         //id = in.readLong();
         name = in.readString();
         category = (Category) in.readSerializable();
-        //length = in.readInt();
+        length = in.readInt();
         description = in.readString();
-        rating = in.readFloat();
+        //rating = in.readFloat();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -51,9 +51,9 @@ public class Movie implements Parcelable {
         }*/
         dest.writeString(name);
         dest.writeSerializable(category);
-        //dest.writeInt(length);
+        dest.writeInt(length);
         dest.writeString(description);
-        dest.writeFloat(rating);
+        //dest.writeFloat(rating);
     }
     // id, name, category, length, description, rating, price
 

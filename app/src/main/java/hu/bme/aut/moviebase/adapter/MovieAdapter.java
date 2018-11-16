@@ -48,8 +48,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         movieViewHolder.nameTextView.setText(movie.name);
         movieViewHolder.movieRating.setRating(movie.rating);
         movieViewHolder.priceTextView.setText(String.format("%s $", String.valueOf(movie.price)));
-        movieViewHolder.lengthTextView.setText(String.format("%s minutes", String.valueOf(movie.length)));
-
         movieViewHolder.movie = movie;
     }
 
@@ -103,12 +101,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
+    public List<Movie> getMovies(){
+        return items;
+    }
+
     class MovieViewHolder extends RecyclerView.ViewHolder implements RVHViewHolder {
 
         TextView nameTextView;
         RatingBar movieRating;
         TextView priceTextView;
-        TextView lengthTextView;
 
         Movie movie;
 
@@ -117,7 +118,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             nameTextView = itemView.findViewById(R.id.tvMovieName);
             movieRating = itemView.findViewById(R.id.ratingBar);
             priceTextView = itemView.findViewById(R.id.tvPrice);
-            lengthTextView = itemView.findViewById(R.id.tvLength);
         }
 
         @Override
