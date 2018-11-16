@@ -1,6 +1,9 @@
 package hu.bme.aut.moviebase.adapter;
 
+import android.graphics.drawable.shapes.RoundRectShape;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +47,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = items.get(i);
         movieViewHolder.nameTextView.setText(movie.name);
         movieViewHolder.movieRating.setRating(movie.rating);
-        movieViewHolder.priceTextView.setText(movie.price + " Ft");
-        movieViewHolder.lengthTextView.setText(movie.length + " perc");
+        movieViewHolder.priceTextView.setText(String.format("%s $", String.valueOf(movie.price)));
+        movieViewHolder.lengthTextView.setText(String.format("%s minutes", String.valueOf(movie.length)));
 
         movieViewHolder.movie = movie;
     }

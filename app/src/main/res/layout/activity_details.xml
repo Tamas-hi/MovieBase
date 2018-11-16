@@ -6,12 +6,13 @@
     tools:context=".activities.DetailsActivity"
     android:orientation="vertical">
 
+
     <TextView
         android:id="@+id/nameTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/lengthTest"
+        android:id="@+id/categoryTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/priceTest"
+        android:id="@+id/ratingTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

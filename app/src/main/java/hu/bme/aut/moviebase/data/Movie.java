@@ -7,6 +7,8 @@ import android.arch.persistence.room.TypeConverter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 @Entity(tableName = "movie")
 public class Movie implements Parcelable {
 
@@ -16,11 +18,10 @@ public class Movie implements Parcelable {
     private Movie(Parcel in){
         //id = in.readLong();
         name = in.readString();
-        //category = (Category) in.readSerializable();
+        category = (Category) in.readSerializable();
         //length = in.readInt();
-        //description = in.readString();
-        //rating = in.readFloat();
-        //price = in.readInt();
+        description = in.readString();
+        rating = in.readFloat();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -49,11 +50,10 @@ public class Movie implements Parcelable {
             dest.writeLong(id);
         }*/
         dest.writeString(name);
-        //dest.writeSerializable(category);
+        dest.writeSerializable(category);
         //dest.writeInt(length);
-        //dest.writeString(description);
-        //dest.writeFloat(rating);
-        //dest.writeInt(price);
+        dest.writeString(description);
+        dest.writeFloat(rating);
     }
     // id, name, category, length, description, rating, price
 
@@ -100,4 +100,5 @@ public class Movie implements Parcelable {
 
     @ColumnInfo(name = "price")
     public int price;
+
 }
