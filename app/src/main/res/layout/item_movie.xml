@@ -36,6 +36,7 @@
         android:numStars="5"
         android:stepSize="1"
         android:isIndicator="true"
+        android:focusable="true"
         />
     </LinearLayout>
 
@@ -53,6 +54,7 @@
             android:textColor="@color/color_toolbar"
             android:layout_marginTop="10dp"
             android:gravity="end"
+            android:focusable="true"
             />
         <Button
             android:id="@+id/btnBuy"

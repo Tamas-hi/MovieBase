@@ -1,10 +1,12 @@
 package hu.bme.aut.moviebase.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -109,6 +111,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         Movie_ movie;
 
+        @SuppressLint("ClickableViewAccessibility")
         MovieViewHolder(View itemView){
             super(itemView);
             nameTextView = itemView.findViewById(R.id.tvMovieName);
@@ -128,6 +131,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             });
 
             nameTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra("MovieItem",movie);
+                    context.startActivity(intent);
+                }
+            });
+
+            movieRating.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(event.getAction() == MotionEvent.ACTION_UP){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, DetailsActivity.class);
+                        intent.putExtra("MovieItem",movie);
+                        context.startActivity(intent);
+                    }
+                    return true;
+                }
+            });
+
+            priceTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
