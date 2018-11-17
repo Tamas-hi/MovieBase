@@ -1,5 +1,6 @@
 package hu.bme.aut.moviebase.adapter;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,24 +18,29 @@ import java.util.List;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.TouchHelperNotifier;
 import hu.bme.aut.moviebase.activities.DetailsActivity;
+import hu.bme.aut.moviebase.activities.MovieListActivity;
 import hu.bme.aut.moviebase.data.MoneyInterface;
-import hu.bme.aut.moviebase.data.Movie;
+import hu.bme.aut.moviebase.data.MovieDatabase;
+import hu.bme.aut.moviebase.data.Movie_;
+import hu.bme.aut.moviebase.data.User;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
 
-    private final List<Movie> items;
+    private final List<Movie_> items;
     private MovieItemClickListener listener;
     private MoneyInterface m;
-    public int money = 30000;
+    //public int money = 30000;
+    //User u;
 
 
-    public MovieAdapter(MovieItemClickListener listener, MoneyInterface m){
+    public MovieAdapter(MovieItemClickListener listener){ //MoneyInterface m, User u){
         this.listener = listener;
         items = new ArrayList<>();
-        this.m = m;
+        //this.m = m;
+        //this.u = u;
     }
 
-    public Movie getMovie(int position){
+    public Movie_ getMovie(int position){
         return items.get(position);
     }
 
@@ -47,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        Movie movie = items.get(i);
+        Movie_ movie = items.get(i);
         movieViewHolder.nameTextView.setText(movie.name);
         movieViewHolder.movieRating.setRating(movie.rating);
         movieViewHolder.priceTextView.setText(String.format("%s $", String.valueOf(movie.price)));
@@ -68,17 +74,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 
     public interface MovieItemClickListener{
-        void onItemChanged(Movie item);
-        void onItemDeleted(Movie item);
+        void onItemChanged(Movie_ item);
+        void onItemDeleted(Movie_ item);
         void onAllItemDeleted();
     }
 
-    public void addMovie(Movie movie){
+    public void addMovie(Movie_ movie){
         items.add(movie);
         notifyItemInserted(items.size() - 1);
     }
 
-    public void deleteItem(Movie movie){
+    public void deleteItem(Movie_ movie){
         items.remove(movie);
         notifyDataSetChanged();
     }
@@ -88,13 +94,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
-    public void update(List<Movie> movies){
+    public void update(List<Movie_> movies){
         items.clear();
         items.addAll(movies);
         notifyDataSetChanged();
     }
 
-    public List<Movie> getMovies(){
+    public List<Movie_> getMovies(){
         return items;
     }
 
@@ -105,7 +111,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         TextView priceTextView;
         Button btnBuy;
 
-        Movie movie;
+        Movie_ movie;
 
         MovieViewHolder(View itemView){
             super(itemView);
@@ -117,8 +123,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             btnBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    money = money - movie.price;
-                    m.onBuyClick(String.valueOf(money));
+                    //u.money = u.money - movie.price;
+                    //m.onBuyClick(String.valueOf(u.money));
+                    //listener.onItemChanged(movie);
                     deleteItem(movie);
                     listener.onItemDeleted(movie);
                 }

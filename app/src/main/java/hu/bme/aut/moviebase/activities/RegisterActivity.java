@@ -1,7 +1,10 @@
 package hu.bme.aut.moviebase.activities;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,13 +16,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 import hu.bme.aut.moviebase.R;
+import hu.bme.aut.moviebase.data.MovieDatabase;
+import hu.bme.aut.moviebase.data.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static String USER_KEY;
+    List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
         final Button btnCancel = findViewById(R.id.btnCancel);
         final Button btnOk = findViewById(R.id.btnOk);
         final CheckBox cbAgree = findViewById(R.id.cbAgree);
+
+        final MovieDatabase database = MovieDatabase.getDatabase(getApplicationContext());
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +78,22 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                USER_KEY = emailRegister.getText().toString();
+                users = database.userDao().getAll();
+
+                User u = new User(emailRegister.getText().toString(), passwordRegister.getText().toString(), 30000);
+
+                for(User user : users) {
+                    if (emailRegister.getText().toString().equals(user.email)) {
+                        Toast.makeText(getBaseContext(), "User already exists!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
+                database.userDao().insert(u);
+                Toast.makeText(getBaseContext(), "Registration was successful!", Toast.LENGTH_LONG).show();
+                finish();
+
+                /*USER_KEY = emailRegister.getText().toString();
                 SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
 
                 File f = new File("/data/data/hu.bme.aut.moviebase/shared_prefs/"+USER_KEY+".xml");
@@ -85,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Registration was successful!", Toast.LENGTH_LONG).show();
 
                     finish();
-                }
+                }*/
             }
         });
     }

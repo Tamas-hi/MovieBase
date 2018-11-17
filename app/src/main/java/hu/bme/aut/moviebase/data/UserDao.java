@@ -9,19 +9,20 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface MovieDao {
-    @Query("SELECT * FROM movie")
-    List<Movie_> getAll();
+public interface UserDao {
+
+    @Query("SELECT * FROM user WHERE email = :email")
+    User findUserByEmail(String email);
+
+    @Query("SELECT * FROM user")
+    List<User> getAll();
 
     @Insert
-    long insert(Movie_ movies);
+    long insert(User users);
 
     @Update
-    void update(Movie_ movie);
+    void update(User... user);
 
     @Delete
-    void deleteItem(Movie_ movie);
-
-    @Query("DELETE FROM movie")
-    void deleteAll();
+    void delete(User... user);
 }

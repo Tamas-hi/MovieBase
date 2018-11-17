@@ -2,6 +2,7 @@ package hu.bme.aut.moviebase.activities;
 
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,22 +25,28 @@ import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
 import hu.bme.aut.moviebase.data.MoneyInterface;
-import hu.bme.aut.moviebase.data.Movie;
+import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.MovieDatabase;
+import hu.bme.aut.moviebase.data.User;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
-public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface {
+public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener{ //MoneyInterface{
 
     private MovieAdapter adapter;
     private MovieDatabase database;
     private boolean AdminLogOn = true;
-    TextView tvMoney;
+    //TextView tvMoney;
+    //User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
-        tvMoney = findViewById(R.id.tvMoney);
+
+        Intent intent = getIntent();
+        //u = intent.getParcelableExtra("userdata");
+        //tvMoney = findViewById(R.id.tvMoney);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
@@ -53,7 +60,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             }
         });
 
-        database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").build();
+        database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
 
         initRecyclerView();
 
@@ -64,6 +71,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    /*public User getUser(){
+        return u;
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -77,8 +88,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this, this);
+        adapter = new MovieAdapter(this);//this,  u);
         loadItemsInBackground();
+        //loadUsersInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -103,16 +115,25 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     }
 
+    /*private void loadUsersInBackground(){
+        new AsyncTask<Void, Void, List<User>>(){
+            @Override
+            protected List<User> doInBackground(Void...voids){
+                return database.userDao().getAll();
+            }
+        }.execute();
+    }*/
+
     private void loadItemsInBackground() {
-        new AsyncTask<Void, Void, List<Movie>>() {
+        new AsyncTask<Void, Void, List<Movie_>>() {
 
             @Override
-            protected List<Movie> doInBackground(Void... voids) {
+            protected List<Movie_> doInBackground(Void... voids) {
                 return database.movieDao().getAll();
             }
 
             @Override
-            protected void onPostExecute(List<Movie> movies) {
+            protected void onPostExecute(List<Movie_> movies) {
                 adapter.update(movies);
             }
         }.execute();
@@ -132,7 +153,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     }
 
     @Override
-    public void onItemChanged(final Movie item) {
+    public void onItemChanged(final Movie_ item) {
         new AsyncTask<Void, Void, Boolean>() {
 
             @Override
@@ -149,7 +170,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     }
 
     @Override
-    public void onItemDeleted(final Movie item) {
+    public void onItemDeleted(final Movie_ item) {
         new AsyncTask<Void, Void, Boolean>(){
             @Override
             protected Boolean doInBackground(Void... voids){
@@ -160,17 +181,17 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     }
 
     @Override
-    public void onMovieCreated(final Movie newMovie) {
-        new AsyncTask<Void, Void, Movie>() {
+    public void onMovieCreated(final Movie_ newMovie) {
+        new AsyncTask<Void, Void, Movie_>() {
 
             @Override
-            protected Movie doInBackground(Void... voids) {
+            protected Movie_ doInBackground(Void... voids) {
                 newMovie.id = database.movieDao().insert(newMovie);
                 return newMovie;
             }
 
             @Override
-            protected void onPostExecute(Movie movie) {
+            protected void onPostExecute(Movie_ movie) {
                 adapter.addMovie(movie);
             }
         }.execute();
@@ -191,8 +212,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 .show();
     }
 
-    @Override
+    /*@Override
     public void onBuyClick(String money) {
-        tvMoney.setText(money);
-    }
+        tvMoney.setText(String.valueOf(u.money));
+        database.userDao().update(u);
+    }*/
 }

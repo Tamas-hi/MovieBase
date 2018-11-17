@@ -1,28 +1,39 @@
 package hu.bme.aut.moviebase.activities;
 
 
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Movie;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 
+import java.util.List;
+import java.util.Objects;
+
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
+import hu.bme.aut.moviebase.data.MovieDatabase;
+import hu.bme.aut.moviebase.data.User;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ImageView img;
     private static final String EMPTY_STRING = "";
     private static String USER_KEY = "";
+    List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +55,25 @@ public class LoginActivity extends AppCompatActivity {
         final Button btnRegister = findViewById(R.id.RegisterButton);
         final TextClock textClock = findViewById(R.id.textClock);
 
+        final MovieDatabase database = MovieDatabase.getDatabase(getApplicationContext());
+        users = database.userDao().getAll();
+
+
         textClock.setFormat12Hour(null);
         textClock.setFormat24Hour("yyyy/MM/dd HH:mm:ss");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 // admin LOGON
                 if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
@@ -70,16 +94,25 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 // user LOGON
-                USER_KEY = etEmailAddress.getText().toString();
+                /*USER_KEY = etEmailAddress.getText().toString();
                 SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
                 String password = preferences.getString(USER_KEY, "");
                     if (password.equals(etPassword.getText().toString())) {
                         Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                         startActivity(intent);
-                    }
+                    }*/
 
+               users = database.userDao().getAll();
 
-
+               for(User u : users) {
+                   if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
+                       Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
+                       intent.putExtra("userdata", u);
+                       startActivity(intent);
+                   }else{
+                       Snackbar.make(findViewById(android.R.id.content), "Wrong password!", Snackbar.LENGTH_LONG).show();
+                   }
+               }
             }
         });
 

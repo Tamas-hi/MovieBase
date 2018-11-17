@@ -2,18 +2,21 @@ package hu.bme.aut.moviebase.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverter;
+import android.graphics.Movie;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@Entity(tableName = "movie")
-public class Movie implements Parcelable {
 
-    public Movie(){
+@Entity(tableName = "movie")//foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "id"))
+public class Movie_ implements Parcelable {
+
+    public Movie_(){
 
     }
-    private Movie(Parcel in){
+    private Movie_(Parcel in){
         //id = in.readLong();
         name = in.readString();
         category = (Category) in.readSerializable();
@@ -22,15 +25,15 @@ public class Movie implements Parcelable {
         //rating = in.readFloat();
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    public static final Creator<Movie_> CREATOR = new Creator<Movie_>() {
         @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
+        public Movie_ createFromParcel(Parcel in) {
+            return new Movie_(in);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public Movie_[] newArray(int size) {
+            return new Movie_[size];
         }
     };
 
@@ -77,9 +80,9 @@ public class Movie implements Parcelable {
         }
     }
 
-    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    public Long id;
+    @ColumnInfo(name = "id")
+    public long id;
 
     @ColumnInfo(name = "name")
     public String name;

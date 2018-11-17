@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import hu.bme.aut.moviebase.R;
-import hu.bme.aut.moviebase.data.Movie;
+import hu.bme.aut.moviebase.data.Movie_;
 
 public class DetailsActivity extends AppCompatActivity{
     @Override
@@ -14,10 +14,10 @@ public class DetailsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Intent intent = getIntent();
-        final Movie movie = intent.getParcelableExtra("MovieItem");
+        final Movie_ movie = intent.getParcelableExtra("MovieItem");
 
         String name = movie.name;
-        Movie.Category category = movie.category;
+        Movie_.Category category = movie.category;
         String description = movie.description;
         int length = movie.length;
 

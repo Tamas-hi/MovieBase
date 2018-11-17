@@ -17,7 +17,7 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 import hu.bme.aut.moviebase.R;
-import hu.bme.aut.moviebase.data.Movie;
+import hu.bme.aut.moviebase.data.Movie_;
 
 public class NewMovieDialogFragment extends DialogFragment {
 
@@ -31,7 +31,7 @@ public class NewMovieDialogFragment extends DialogFragment {
     private NumberPicker numberPicker;
 
     public interface NewMovieDialogListener{
-        void onMovieCreated(Movie newMovie);
+        void onMovieCreated(Movie_ newMovie);
     }
 
     private NewMovieDialogListener listener;
@@ -84,10 +84,10 @@ public class NewMovieDialogFragment extends DialogFragment {
         return nameEditText.getText().length() > 0;
     }
 
-    private Movie getMovie(){
-        Movie movie = new Movie();
+    private Movie_ getMovie(){
+        Movie_ movie = new Movie_();
         movie.name = nameEditText.getText().toString();
-        movie.category = Movie.Category.getByOrdinal(categorySpinner.getSelectedItemPosition());
+        movie.category = Movie_.Category.getByOrdinal(categorySpinner.getSelectedItemPosition());
         try{
             movie.length = Integer.parseInt(lengthEditText.getText().toString());
         }catch (NumberFormatException e){
