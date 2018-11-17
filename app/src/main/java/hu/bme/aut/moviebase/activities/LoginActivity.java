@@ -1,12 +1,7 @@
 package hu.bme.aut.moviebase.activities;
 
 
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         textClock.setFormat12Hour(null);
-        textClock.setFormat24Hour("yyyy/MM/dd HH:mm:ss");
+        textClock.setFormat24Hour(getString(R.string.dateFormat));
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +78,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (etEmailAddress.getText().toString().isEmpty()) {
                     etEmailAddress.requestFocus();
-                    etEmailAddress.setError("Please enter your email address");
+                    etEmailAddress.setError(getString(R.string.enterEmail));
                     return;
                 }
 
                 if (etPassword.getText().toString().isEmpty()) {
                     etPassword.requestFocus();
-                    etPassword.setError("Please enter your password");
+                    etPassword.setError(getString(R.string.enterPass));
                     return;
                 }
 

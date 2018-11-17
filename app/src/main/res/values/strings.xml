@@ -25,6 +25,10 @@
     <string name="new_movie">New Movie</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="exception_error">Activity must implement the NewMovieDialogListener interface!</string>
+    <string name="dateFormat">yyyy/MM/dd HH:mm:ss</string>
+    <string name="enterEmail">Please enter your email address</string>
+    <string name="enterPass">Please enter your password</string>
     <string-array name="category_items">
         <item>Action</item>
         <item>Documentary</item>

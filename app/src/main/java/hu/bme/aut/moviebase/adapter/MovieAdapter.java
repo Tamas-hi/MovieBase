@@ -1,6 +1,5 @@
 package hu.bme.aut.moviebase.adapter;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,11 +17,8 @@ import java.util.List;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.TouchHelperNotifier;
 import hu.bme.aut.moviebase.activities.DetailsActivity;
-import hu.bme.aut.moviebase.activities.MovieListActivity;
 import hu.bme.aut.moviebase.data.MoneyInterface;
-import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.data.Movie_;
-import hu.bme.aut.moviebase.data.User;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
 

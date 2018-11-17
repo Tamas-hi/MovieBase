@@ -32,7 +32,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/dollar_sign"
+                android:src="@drawable/ic_dollar_sign"
                 android:layout_marginStart="40dp"/>
             <TextView
                 android:id="@+id/tvMoney"

@@ -13,10 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,10 +28,8 @@ import java.util.Objects;
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
-import hu.bme.aut.moviebase.data.MoneyInterface;
-import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.MovieDatabase;
-import hu.bme.aut.moviebase.data.User;
+import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
 public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener{ //MoneyInterface{
@@ -82,6 +84,22 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             case R.id.action_settings:
                 adapter.deleteAllItem();
                 onAllItemDeleted();
+                break;
+
+            case R.id.about:
+                LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.popup_window, null);
+                final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
+                Button btnAboutOk = popupView.findViewById(R.id.btnAboutOk);
+                btnAboutOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

@@ -43,7 +43,7 @@ public class NewMovieDialogFragment extends DialogFragment {
         if(activity instanceof NewMovieDialogListener){
             listener = (NewMovieDialogListener) activity;
         }else{
-            throw new RuntimeException("Activity must implement the NewMovieDialogListener interface!");
+            throw new RuntimeException(getString(R.string.exception_error));
         }
     }
 
