@@ -11,4 +11,5 @@
     <color name="darkgrey">#696969</color>
     <color name="red">#8B0000</color>
     <color name="movie_item_background">#f5f5dc</color>
+    <color name="colorText">#FFFFFF</color>
 </resources>

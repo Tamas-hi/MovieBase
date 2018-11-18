@@ -25,13 +25,17 @@ import hu.bme.aut.moviebase.data.User;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
 
-    private final List<Movie_> items;
+    private List<Movie_> items;
     private MovieItemClickListener listener;
     private MoneyInterface m;
     //public int money = 30000;
     private User u;
     private boolean adminLogOn;
 
+
+    public MovieAdapter(){
+
+    }
 
     public MovieAdapter(MovieItemClickListener listener, MoneyInterface m, User u, boolean adminLogOn){ //MoneyInterface m, User u){
         this.listener = listener;

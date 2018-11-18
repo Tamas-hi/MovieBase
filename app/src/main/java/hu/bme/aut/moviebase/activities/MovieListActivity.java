@@ -54,8 +54,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
-
         Intent intent = getIntent();
+        //float newRating = intent.getFloatExtra("newRating", 10.0f);
+        /*if(newRating >= 0 && newRating <=5) {
+            adapter.notifyDataSetChanged();
+        }*/
         u = intent.getParcelableExtra("userdata");
         users = intent.getParcelableArrayListExtra("users");
         adminLogOn = intent.getBooleanExtra("admin", false);
@@ -78,7 +81,6 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         });
 
         database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
-
         initRecyclerView();
 
     }
@@ -97,6 +99,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
 
+            case R.id.menuRefresh:
+                loadItemsInBackground();
+                break;
+
             case R.id.sortByTitle:
                 Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
                     @Override
@@ -111,7 +117,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
                     @Override
                     public int compare(Movie_ m1, Movie_ m2){
-                        return (-Integer.compare(m1.rating, m2.rating));
+                        return (-Float.compare(m1.rating, m2.rating));
                     }
                 });
                 adapter.notifyDataSetChanged();
@@ -178,7 +184,6 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void loadItemsInBackground() {
         new AsyncTask<Void, Void, List<Movie_>>() {
-
             @Override
             protected List<Movie_> doInBackground(Void... voids) {
                 return database.movieDao().getAll();
@@ -281,6 +286,5 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         database.userDao().deleteAll();
         database.userDao().insertAll(users);
         database.userDao().insert(u);*/
-        Toast.makeText(getBaseContext(), "test", Toast.LENGTH_LONG).show();
     }
 }
