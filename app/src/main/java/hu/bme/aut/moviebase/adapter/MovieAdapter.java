@@ -30,13 +30,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private MoneyInterface m;
     //public int money = 30000;
     private User u;
+    private boolean adminLogOn;
 
 
-    public MovieAdapter(MovieItemClickListener listener, MoneyInterface m, User u){ //MoneyInterface m, User u){
+    public MovieAdapter(MovieItemClickListener listener, MoneyInterface m, User u, boolean adminLogOn){ //MoneyInterface m, User u){
         this.listener = listener;
         items = new ArrayList<>();
         this.m = m;
         this.u = u;
+        this.adminLogOn = adminLogOn;
     }
 
     public Movie_ getMovie(int position){
@@ -123,11 +125,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             btnBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    u.money = u.money - movie.price;
-                    m.onBuyClick(u.money);
-                    //listener.onItemChanged(movie);
-                    deleteItem(movie);
-                    listener.onItemDeleted(movie);
+                    if(!adminLogOn) {
+                        u.money = u.money - movie.price;
+                        m.onBuyClick(u.money);
+                    }
+                        //listener.onItemChanged(movie);
+                        deleteItem(movie);
+                        listener.onItemDeleted(movie);
+
                 }
             });
 

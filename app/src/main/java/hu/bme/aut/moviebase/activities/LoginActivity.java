@@ -4,6 +4,7 @@ package hu.bme.aut.moviebase.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String EMPTY_STRING = "";
     private static String USER_KEY = "";
     List<User> users;
+    boolean adminLogOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-
                 try {
                     InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                     if (imm != null) {
@@ -75,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                 // admin LOGON
                 if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
                     Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
+                    adminLogOn = true;
+                    intent.putExtra("admin", adminLogOn);
                     startActivity(intent);
                 }
 

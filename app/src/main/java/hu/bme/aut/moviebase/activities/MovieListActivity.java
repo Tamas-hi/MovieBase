@@ -42,7 +42,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private MovieAdapter adapter;
     private MovieDatabase database;
-    private boolean AdminLogOn = true;
+    private boolean adminLogOn;
     private User u;
     private TextView tvMoney;
     private List<User> users;
@@ -55,8 +55,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         Intent intent = getIntent();
         u = intent.getParcelableExtra("userdata");
         users = intent.getParcelableArrayListExtra("users");
+        adminLogOn = intent.getBooleanExtra("admin", false);
         tvMoney = findViewById(R.id.tvMoney);
-        tvMoney.setText(String.valueOf(u.money));
+        if(!adminLogOn) {
+            tvMoney.setText(String.valueOf(u.money));
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -115,7 +118,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this,this, u);//this,  u);
+        adapter = new MovieAdapter(this,this, u, adminLogOn);//this,  u);
         loadItemsInBackground();
         //loadUsersInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
