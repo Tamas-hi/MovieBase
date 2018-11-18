@@ -111,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                        intent.putExtra("userdata", u);
                        intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) users);
                        startActivity(intent);
-                   }else{
-                       Snackbar.make(findViewById(android.R.id.content), "Wrong password!", Snackbar.LENGTH_LONG).show();
+                   }else if(!(etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password))){
+                       Snackbar.make(findViewById(android.R.id.content), "Wrong email / password!", Snackbar.LENGTH_LONG).show();
                    }
                }
             }

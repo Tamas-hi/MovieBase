@@ -95,7 +95,7 @@ public class Movie_ implements Parcelable {
     public String description;
 
     @ColumnInfo(name = "rating")
-    public float rating;
+    public int rating;
 
     @ColumnInfo(name = "price")
     public int price;

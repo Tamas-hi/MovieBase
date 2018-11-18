@@ -3,6 +3,7 @@ package hu.bme.aut.moviebase.activities;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -93,6 +96,26 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
+
+            case R.id.sortByTitle:
+                Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
+                    @Override
+                    public int compare(Movie_ m1, Movie_ m2){
+                        return m1.name.compareToIgnoreCase(m2.name);
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                break;
+
+            case R.id.sortByRating:
+                Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
+                    @Override
+                    public int compare(Movie_ m1, Movie_ m2){
+                        return (-Integer.compare(m1.rating, m2.rating));
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                break;
             case R.id.action_settings:
                 adapter.deleteAllItem();
                 onAllItemDeleted();
@@ -111,7 +134,6 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     }
                 });
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
