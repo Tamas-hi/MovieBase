@@ -6,7 +6,10 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface UserDao {
@@ -20,9 +23,20 @@ public interface UserDao {
     @Insert
     long insert(User users);
 
-    @Update
-    void update(User... user);
+    @Query("UPDATE user SET money = :money WHERE id =:id")
+    void update(long id, int money);
 
-    @Delete
-    void delete(User... user);
+   /* @Delete
+    void delete(User... user);*/
+   @Query("DELETE FROM user WHERE email = :email")
+   void deleteRow(String email);
+
+    @Query("DELETE FROM user")
+    void deleteAll();
+
+    @Insert(onConflict = REPLACE)
+    void insertAll(List<User> users);
+
+    @Query("DELETE FROM user WHERE id= :id AND money = 30000")
+    void deleteOld(long id);
 }

@@ -3,6 +3,7 @@ package hu.bme.aut.moviebase.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                    if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                        intent.putExtra("userdata", u);
+                       intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) users);
                        startActivity(intent);
                    }else{
                        Snackbar.make(findViewById(android.R.id.content), "Wrong password!", Snackbar.LENGTH_LONG).show();

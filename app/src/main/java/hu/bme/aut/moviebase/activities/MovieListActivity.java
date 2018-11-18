@@ -21,24 +21,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.MovieTouchHelperCallback;
 import hu.bme.aut.moviebase.adapter.MovieAdapter;
+import hu.bme.aut.moviebase.data.MoneyInterface;
 import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.data.Movie_;
+import hu.bme.aut.moviebase.data.User;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
-public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener{ //MoneyInterface{
+public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface{
+
 
     private MovieAdapter adapter;
     private MovieDatabase database;
     private boolean AdminLogOn = true;
-    //TextView tvMoney;
-    //User u;
+    private User u;
+    private TextView tvMoney;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +53,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         setContentView(R.layout.activity_movie_list);
 
         Intent intent = getIntent();
-        //u = intent.getParcelableExtra("userdata");
-        //tvMoney = findViewById(R.id.tvMoney);
+        u = intent.getParcelableExtra("userdata");
+        users = intent.getParcelableArrayListExtra("users");
+        tvMoney = findViewById(R.id.tvMoney);
+        tvMoney.setText(String.valueOf(u.money));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -106,7 +115,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this);//this,  u);
+        adapter = new MovieAdapter(this,this, u);//this,  u);
         loadItemsInBackground();
         //loadUsersInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -230,9 +239,23 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 .show();
     }
 
-    /*@Override
-    public void onBuyClick(String money) {
+    @Override
+    public void onBuyClick(int money) {
         tvMoney.setText(String.valueOf(u.money));
-        database.userDao().update(u);
-    }*/
+        User deleted = database.userDao().findUserByEmail(u.email);
+        database.userDao().deleteRow(deleted.email);
+        database.userDao().insert(u);
+        //database.userDao().deleteAll();
+        //users.remove(u);
+        //users.add(u);
+        //database.userDao().insert(u);
+        //database.userDao().deleteRow(u.id);
+        //database.userDao().deleteAll();
+        //database.userDao().insert(u);
+        /*List<User> users = database.userDao().getAll();
+        database.userDao().deleteAll();
+        database.userDao().insertAll(users);
+        database.userDao().insert(u);*/
+        Toast.makeText(getBaseContext(), "test", Toast.LENGTH_LONG).show();
+    }
 }

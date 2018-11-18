@@ -21,6 +21,7 @@ import hu.bme.aut.moviebase.UI_Helper.TouchHelperNotifier;
 import hu.bme.aut.moviebase.activities.DetailsActivity;
 import hu.bme.aut.moviebase.data.MoneyInterface;
 import hu.bme.aut.moviebase.data.Movie_;
+import hu.bme.aut.moviebase.data.User;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
 
@@ -28,14 +29,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private MovieItemClickListener listener;
     private MoneyInterface m;
     //public int money = 30000;
-    //User u;
+    private User u;
 
 
-    public MovieAdapter(MovieItemClickListener listener){ //MoneyInterface m, User u){
+    public MovieAdapter(MovieItemClickListener listener, MoneyInterface m, User u){ //MoneyInterface m, User u){
         this.listener = listener;
         items = new ArrayList<>();
-        //this.m = m;
-        //this.u = u;
+        this.m = m;
+        this.u = u;
     }
 
     public Movie_ getMovie(int position){
@@ -122,8 +123,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             btnBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //u.money = u.money - movie.price;
-                    //m.onBuyClick(String.valueOf(u.money));
+                    u.money = u.money - movie.price;
+                    m.onBuyClick(u.money);
                     //listener.onItemChanged(movie);
                     deleteItem(movie);
                     listener.onItemDeleted(movie);
