@@ -99,5 +99,4 @@ public class Movie_ implements Parcelable {
 
     @ColumnInfo(name = "price")
     public int price;
-
 }

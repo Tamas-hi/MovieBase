@@ -11,8 +11,11 @@
         <item name="android:itemBackground">@color/black</item>
         <item name="android:textColor">@color/orange</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="LoadingTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/welcomescreen</item>
     </style>
@@ -23,7 +26,7 @@
     </style>
 
     <style name="ToolBarStyle" parent="Theme.AppCompat">
-    <item name="android:textColorPrimary">@color/orange</item>
+        <item name="android:textColorPrimary">@color/orange</item>
         <item name="android:textColorSecondary">@color/orange</item>
         <item name="actionMenuTextColor">@color/orange</item>
     </style>

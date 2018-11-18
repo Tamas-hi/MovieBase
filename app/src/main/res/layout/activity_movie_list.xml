@@ -48,6 +48,17 @@
 
     <include layout="@layout/content_main" />
 
+    <Button
+        android:id="@+id/btnCollection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "My Collection"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/rounded_button_inverse"
+        android:textColor="@color/black" />
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
