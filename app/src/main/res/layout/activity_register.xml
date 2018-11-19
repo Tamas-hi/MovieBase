@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REGISTRATION FORM"
+        android:text="@string/registration_form"
         android:textStyle="bold"
         android:textSize="28sp"
         android:layout_gravity="center"

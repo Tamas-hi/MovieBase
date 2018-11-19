@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:textSize="22sp"
         android:layout_margin="30dp"
-        android:text="Created by Tamás Hargitai, BME"/>
+        android:text="@string/created_by"/>
 
     <Button
         android:id="@+id/btnAboutOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/ok"
         android:background="#80000000"
         android:layout_gravity="end"/>
 

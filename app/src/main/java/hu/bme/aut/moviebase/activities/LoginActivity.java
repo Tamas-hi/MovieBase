@@ -3,8 +3,6 @@ package hu.bme.aut.moviebase.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,9 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,9 +27,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private ImageView img;
     private static final String EMPTY_STRING = "";
-    private static String USER_KEY = "";
-    List<User> users;
-    boolean adminLogOn = false;
+    //private static String USER_KEY = "";
+    private List<User> users;
+    private boolean adminLogOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +105,9 @@ public class LoginActivity extends AppCompatActivity {
                    if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                        intent.putExtra("userdata", u);
-                       intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) users);
+                       adminLogOn = false;
+                       intent.putExtra("admin",adminLogOn);
+                       //intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) users);
                        startActivity(intent);
                    }else if(!(etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password))){
                        Snackbar.make(findViewById(android.R.id.content), "Wrong email / password!", Snackbar.LENGTH_LONG).show();

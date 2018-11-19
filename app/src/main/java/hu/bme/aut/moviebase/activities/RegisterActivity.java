@@ -19,8 +19,9 @@ import hu.bme.aut.moviebase.data.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static String USER_KEY;
-    List<User> users;
+    //private static String USER_KEY;
+    private List<User> users;
+    private static final int START_MONEY = 30000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 users = database.userDao().getAll();
 
-                User u = new User(emailRegister.getText().toString(), passwordRegister.getText().toString(), 30000);
+                User u = new User(emailRegister.getText().toString(), passwordRegister.getText().toString(), START_MONEY);
 
                 for(User user : users) {
                     if (emailRegister.getText().toString().equals(user.email)) {

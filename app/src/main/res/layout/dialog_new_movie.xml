@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Movie name"
+        android:text="@string/movie_name"
         android:textColor="@color/black"/>
 
     <EditText
@@ -17,13 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLength="25"
-        android:textColor="@color/orange"/>
+        android:textColor="@color/orange"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Category"
+        android:text="@string/category_2"
         android:textColor="@color/black"/>
 
     <Spinner
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Length (in minutes)"
+        android:text="@string/length_in_minutes"
         android:textColor="@color/black"/>
 
     <EditText
@@ -43,13 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:textColor="@color/orange"/>
+        android:textColor="@color/orange"
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Description"
+        android:text="@string/description_2"
         android:textColor="@color/black"/>
 
     <EditText
@@ -57,13 +59,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/orange"
-        />
+        android:importantForAutofill="no" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Price"
+        android:text="@string/price"
         android:textColor="@color/black"/>
 
     <EditText
@@ -71,7 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:textColor="@color/orange"/>
+        android:textColor="@color/orange"
+        android:importantForAutofill="no" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Rating"
+            android:text="@string/rating"
             android:textColor="@color/black" />
 
     <NumberPicker

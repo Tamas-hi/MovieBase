@@ -3,7 +3,6 @@ package hu.bme.aut.moviebase.activities;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,9 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -48,7 +45,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     private boolean adminLogOn;
     private User u;
     private TextView tvMoney;
-    private List<User> users;
+    //private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +57,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             adapter.notifyDataSetChanged();
         }*/
         u = intent.getParcelableExtra("userdata");
-        users = intent.getParcelableArrayListExtra("users");
+        //users = intent.getParcelableArrayListExtra("users");
         adminLogOn = intent.getBooleanExtra("admin", false);
         tvMoney = findViewById(R.id.tvMoney);
         if(!adminLogOn) {
@@ -73,12 +70,18 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new NewMovieDialogFragment().show(getSupportFragmentManager(), NewMovieDialogFragment.TAG);
-            }
-        });
+
+        if(adminLogOn) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new NewMovieDialogFragment().show(getSupportFragmentManager(), NewMovieDialogFragment.TAG);
+                }
+            });
+        }else{
+            fab.hide();
+        }
+
 
         database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
         initRecyclerView();
@@ -129,7 +132,8 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             case R.id.about:
                 LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.popup_window, null);
+                final ViewGroup nullView = null;
+                final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.popup_window, nullView);
                 final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
                 Button btnAboutOk = popupView.findViewById(R.id.btnAboutOk);

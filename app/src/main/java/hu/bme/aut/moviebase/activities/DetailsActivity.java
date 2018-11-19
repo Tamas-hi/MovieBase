@@ -1,26 +1,21 @@
 package hu.bme.aut.moviebase.activities;
 
 import android.content.Intent;
-import android.graphics.Movie;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import hu.bme.aut.moviebase.R;
-import hu.bme.aut.moviebase.adapter.MovieAdapter;
 import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.data.Movie_;
-import hu.bme.aut.moviebase.data.User;
 
 public class DetailsActivity extends AppCompatActivity {
 
     private float originalRating;
-    //private MovieAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +31,6 @@ public class DetailsActivity extends AppCompatActivity {
         String description = movie.description;
         int length = movie.length;
         originalRating = movie.rating;
-
-        //adapter = new MovieAdapter();
 
         TextView nameTextView = findViewById(R.id.tvName);
         TextView categoryTextView = findViewById(R.id.tvCategory);
@@ -58,15 +51,8 @@ public class DetailsActivity extends AppCompatActivity {
                 database.movieDao().deleteRow(deleted.name);
                 movie.rating = originalRating;
                 database.movieDao().insert(movie);
-                Toast.makeText(getBaseContext(), String.valueOf(movie.rating), Toast.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), "New rating: " + originalRating, Snackbar.LENGTH_LONG).show();
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        //Intent i = new Intent(DetailsActivity.this, MovieListActivity.class);
-        //i.putExtra("newRating", originalRating);
     }
 }

@@ -29,6 +29,29 @@
     <string name="dateFormat">yyyy/MM/dd HH:mm:ss</string>
     <string name="enterEmail">Please enter your email address</string>
     <string name="enterPass">Please enter your password</string>
+    <string name="category">Category:</string>
+    <string name="description">Description:</string>
+    <string name="length">Length:</string>
+    <string name="rate_this_film_here">Rate this film here:</string>
+    <string name="save_rating">Save rating</string>
+    <string name="status_logged_in">STATUS: Logged in</string>
+    <string name="dollar_sign">dollar_sign</string>
+    <string name="max_money">99999 $</string>
+    <string name="my_collection">My Collection</string>
+    <string name="registration_form">REGISTRATION FORM</string>
+    <string name="movie_name">Movie name</string>
+    <string name="category_2">Category</string>
+    <string name="length_in_minutes">Length (in minutes)</string>
+    <string name="description_2">Description</string>
+    <string name="price">Price</string>
+    <string name="rating">Rating</string>
+    <string name="buy">BUY</string>
+    <string name="created_by">Created by Tamás Hargitai, BME</string>
+    <string name="refresh">Refresh</string>
+    <string name="sort_by_title">Sort by title</string>
+    <string name="sort_by_rating">Sort by rating</string>
+    <string name="delete_all">Delete all</string>
+    <string name="about">About</string>
     <string-array name="category_items">
         <item>Action</item>
         <item>Documentary</item>
