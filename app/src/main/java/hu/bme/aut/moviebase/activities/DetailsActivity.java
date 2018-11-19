@@ -1,6 +1,7 @@
 package hu.bme.aut.moviebase.activities;
 
 import android.content.Intent;
+import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -71,5 +72,11 @@ public class DetailsActivity extends AppCompatActivity {
                 return true;
             }
         }.execute();
+    }
+
+    @Override
+    public void onBackPressed(){
+      super.onBackPressed();
+      MovieListActivity.loadItemsInBackground();
     }
 }

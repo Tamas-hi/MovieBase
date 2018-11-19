@@ -1,6 +1,7 @@
 package hu.bme.aut.moviebase.activities;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,7 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -40,8 +44,8 @@ import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface{
 
 
-    private MovieAdapter adapter;
-    private MovieDatabase database;
+    private static MovieAdapter adapter;
+    private static MovieDatabase database;
     private boolean adminLogOn;
     private User u;
     private TextView tvMoney;
@@ -68,8 +72,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
 
-
-        FloatingActionButton fab = findViewById(R.id.fab);
+        final Button btnCollection = findViewById(R.id.btnCollection);
+        final Button btnUsers = findViewById(R.id.btnUsers);
+        final FloatingActionButton fab = findViewById(R.id.fab);
+        database = MovieDatabase.getDatabase(getApplicationContext());
 
         if(adminLogOn) {
             fab.setOnClickListener(new View.OnClickListener() {
@@ -78,13 +84,31 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     new NewMovieDialogFragment().show(getSupportFragmentManager(), NewMovieDialogFragment.TAG);
                 }
             });
+            btnUsers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View popupView = inflater.inflate(R.layout.user_delete,null);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
+                    popupWindow.setFocusable(true);
+                    popupWindow.update();
+                    Button btnDelete = popupView.findViewById(R.id.btnDelete);
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popupWindow.dismiss();
+                        }
+                    });
+                }
+            });
         }else{
             fab.hide();
+            btnUsers.setVisibility(View.INVISIBLE);
         }
 
 
         //database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
-        database = MovieDatabase.getDatabase(getApplicationContext());
         initRecyclerView();
 
     }
@@ -92,6 +116,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        if(!adminLogOn){
+            menu.getItem(2).setVisible(false);
+        }
         return true;
     }
 
@@ -103,9 +131,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
 
-            case R.id.menuRefresh:
-                loadItemsInBackground();
-                break;
+            //case R.id.menuRefresh:
+               // loadItemsInBackground();
+               // break;
 
             case R.id.sortByTitle:
                 Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
@@ -187,7 +215,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         }.execute();
     }*/
 
-    private void loadItemsInBackground() {
+    public static void loadItemsInBackground() {
         new AsyncTask<Void, Void, List<Movie_>>() {
             @Override
             protected List<Movie_> doInBackground(Void... voids) {

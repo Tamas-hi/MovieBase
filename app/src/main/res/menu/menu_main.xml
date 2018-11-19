@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="hu.bme.aut.testproject.MainActivity">
 
-    <item
+    <!--<item
         android:id="@+id/menuRefresh"
         android:orderInCategory="0"
         android:title="@string/refresh"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
     <item
         android:id="@+id/sortByTitle"
         android:orderInCategory="1"

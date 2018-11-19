@@ -59,6 +59,17 @@
         android:background="@drawable/rounded_button_inverse"
         android:textColor="@color/black" />
 
+    <Button
+        android:id="@+id/btnUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="175dp"
+        android:background="@drawable/rounded_button_inverse"
+        android:textColor="@color/black"
+        android:text="USERS"
+        android:layout_marginBottom="16dp"/>
+
 
 
     <android.support.design.widget.FloatingActionButton
