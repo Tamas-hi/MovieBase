@@ -100,6 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                     }*/
 
                users = database.userDao().getAll();
+               if(users.isEmpty()){
+                   Snackbar.make(findViewById(android.R.id.content), "There is no registered user.", Snackbar.LENGTH_LONG).show();
+               }
 
                for(User u : users) {
                    if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
@@ -109,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                        intent.putExtra("admin",adminLogOn);
                        //intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) users);
                        startActivity(intent);
-                   }else if(!(etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password))){
+                   }else{
                        Snackbar.make(findViewById(android.R.id.content), "Wrong email / password!", Snackbar.LENGTH_LONG).show();
                    }
                }

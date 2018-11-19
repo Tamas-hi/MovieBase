@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -91,7 +92,8 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 @Override
                 public void onClick(View v) {
                     LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                    final View popupView = inflater.inflate(R.layout.user_delete,null);
+                    final ViewGroup nullView = null;
+                    final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.user_delete,nullView);
                     final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     final EditText etUserEmail = popupView.findViewById(R.id.etEmail);
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
@@ -104,10 +106,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                         @Override
                         public void onClick(View v) {
                             String email = etUserEmail.getText().toString();
+                            if(allUsers.isEmpty())
+                                popupWindow.dismiss();
                             for(User u: allUsers){
                                 if(u.email.equals(email)) {
                                     database.userDao().delete(u);
                                     popupWindow.dismiss();
+                                    Snackbar.make(findViewById(android.R.id.content), "User deleted", Snackbar.LENGTH_LONG).show();
                                 }else{
                                     popupWindow.dismiss();
                                 }
