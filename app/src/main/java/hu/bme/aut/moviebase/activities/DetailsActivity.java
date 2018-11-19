@@ -1,6 +1,7 @@
 package hu.bme.aut.moviebase.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +17,18 @@ import hu.bme.aut.moviebase.data.Movie_;
 public class DetailsActivity extends AppCompatActivity {
 
     private float originalRating;
+    private MovieDatabase database;
+    private Movie_ movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Intent intent = getIntent();
-        final Movie_ movie = intent.getParcelableExtra("MovieItem");
+        movie = intent.getParcelableExtra("MovieItem");
         final Button btnSaveRating = findViewById(R.id.btnSaveRating);
         final RatingBar ratingBar = findViewById(R.id.userRating);
-        final MovieDatabase database = MovieDatabase.getDatabase(getApplicationContext());
+        database = MovieDatabase.getDatabase(getApplicationContext());
         String name = movie.name;
         Movie_.Category category = movie.category;
         String description = movie.description;
@@ -47,12 +50,26 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 float newRating = ratingBar.getRating();
                 originalRating = (originalRating + newRating) / 2;
+                //Movie_ deleted = database.movieDao().findMovieByName(movie.name);
+               // database.movieDao().deleteRow(deleted.name);
+                //movie.rating = originalRating;
+                //database.movieDao().insert(movie);
+                saveRatingInBackground();
+                Snackbar.make(findViewById(android.R.id.content), "New rating: " + originalRating, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void saveRatingInBackground(){
+        new AsyncTask<Void, Void, Boolean>(){
+            @Override
+            protected Boolean doInBackground(Void... voids){
                 Movie_ deleted = database.movieDao().findMovieByName(movie.name);
                 database.movieDao().deleteRow(deleted.name);
                 movie.rating = originalRating;
                 database.movieDao().insert(movie);
-                Snackbar.make(findViewById(android.R.id.content), "New rating: " + originalRating, Snackbar.LENGTH_LONG).show();
+                return true;
             }
-        });
+        }.execute();
     }
 }

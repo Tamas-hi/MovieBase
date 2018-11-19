@@ -83,7 +83,8 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         }
 
 
-        database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
+        //database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
+        database = MovieDatabase.getDatabase(getApplicationContext());
         initRecyclerView();
 
     }
@@ -276,9 +277,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     @Override
     public void onBuyClick(int money) {
         tvMoney.setText(String.valueOf(u.money));
-        User deleted = database.userDao().findUserByEmail(u.email);
-        database.userDao().deleteRow(deleted.email);
-        database.userDao().insert(u);
+        updateMoneyInBackground();
+        //User deleted = database.userDao().findUserByEmail(u.email);
+        //database.userDao().deleteRow(deleted.email);
+        //database.userDao().insert(u);
         //database.userDao().deleteAll();
         //users.remove(u);
         //users.add(u);
@@ -290,5 +292,17 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         database.userDao().deleteAll();
         database.userDao().insertAll(users);
         database.userDao().insert(u);*/
+    }
+
+    private void updateMoneyInBackground(){
+        new AsyncTask<Void, Void, Boolean>(){
+            @Override
+            protected Boolean doInBackground(Void... voids){
+                User deleted = database.userDao().findUserByEmail(u.email);
+                database.userDao().deleteRow(deleted.email);
+                database.userDao().insert(u);
+                return true;
+            }
+        }.execute();
     }
 }

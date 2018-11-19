@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     //private static String USER_KEY;
     private List<User> users;
     private static final int START_MONEY = 30000;
+    private MovieDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         final Button btnOk = findViewById(R.id.btnOk);
         final CheckBox cbAgree = findViewById(R.id.cbAgree);
 
-        final MovieDatabase database = MovieDatabase.getDatabase(getApplicationContext());
+        database = MovieDatabase.getDatabase(getApplicationContext());
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
