@@ -100,22 +100,26 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     popupWindow.setFocusable(true);
                     popupWindow.update();
 
-                    final List<User> allUsers = database.userDao().getAll();
                     Button btnDelete = popupView.findViewById(R.id.btnDelete);
                     btnDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             String email = etUserEmail.getText().toString();
-                            if(allUsers.isEmpty())
+                            final List<User> allUsers = database.userDao().getAll();
+                            if(allUsers.isEmpty()) {
+                                //Toast.makeText(getBaseContext(), "There is no registered user.", Toast.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(android.R.id.content), "There is no registered user.", Snackbar.LENGTH_LONG).show();
                                 popupWindow.dismiss();
-                            for(User u: allUsers){
-                                if(u.email.equals(email)) {
+                            }else{
+                            for(User u: allUsers) {
+                                if (u.email.equals(email)) {
                                     database.userDao().delete(u);
                                     popupWindow.dismiss();
                                     Snackbar.make(findViewById(android.R.id.content), "User deleted", Snackbar.LENGTH_LONG).show();
-                                }else{
+                                } else {
                                     popupWindow.dismiss();
                                 }
+                            }
                             }
                         }
                     });
