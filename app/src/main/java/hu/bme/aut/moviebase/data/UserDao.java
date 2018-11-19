@@ -1,6 +1,7 @@
 package hu.bme.aut.moviebase.data;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -23,8 +24,9 @@ public interface UserDao {
     @Query("UPDATE user SET money = :money WHERE id =:id")
     void update(long id, int money);
 
-   /* @Delete
-    void delete(User... user);*/
+   @Delete
+   void delete(User user);
+
    @Query("DELETE FROM user WHERE email = :email")
    void deleteRow(String email);
 

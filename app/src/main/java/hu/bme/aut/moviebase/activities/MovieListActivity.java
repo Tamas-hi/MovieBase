@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -84,20 +85,33 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     new NewMovieDialogFragment().show(getSupportFragmentManager(), NewMovieDialogFragment.TAG);
                 }
             });
+
+
             btnUsers.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View popupView = inflater.inflate(R.layout.user_delete,null);
+                    final View popupView = inflater.inflate(R.layout.user_delete,null);
                     final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    final EditText etUserEmail = popupView.findViewById(R.id.etEmail);
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
                     popupWindow.setFocusable(true);
                     popupWindow.update();
+
+                    final List<User> allUsers = database.userDao().getAll();
                     Button btnDelete = popupView.findViewById(R.id.btnDelete);
                     btnDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            popupWindow.dismiss();
+                            String email = etUserEmail.getText().toString();
+                            for(User u: allUsers){
+                                if(u.email.equals(email)) {
+                                    database.userDao().delete(u);
+                                    popupWindow.dismiss();
+                                }else{
+                                    popupWindow.dismiss();
+                                }
+                            }
                         }
                     });
                 }
