@@ -135,14 +135,6 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         //database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
         initRecyclerView();
 
-        btnCollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MovieListActivity.this, BoughtMovies.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     @Override
