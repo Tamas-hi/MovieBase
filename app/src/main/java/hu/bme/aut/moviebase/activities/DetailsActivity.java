@@ -43,6 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
         final TextView categoryTextView = findViewById(R.id.tvCategory);
         final TextView lengthTextView = findViewById(R.id.tvLength);
         final TextView descTextView = findViewById(R.id.tvDesc);
+        final Button btnBack = findViewById(R.id.btnBackDetails);
 
         nameTextView.setText(name);
         categoryTextView.setText(category.toString());
@@ -58,6 +59,13 @@ public class DetailsActivity extends AppCompatActivity {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.new_rating) + originalRating, Snackbar.LENGTH_LONG).show();
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private static void saveRatingInBackground(){
@@ -65,8 +73,8 @@ public class DetailsActivity extends AppCompatActivity {
 
             @Override
             protected Boolean doInBackground(Void... voids){
-                Movie_ deleted = database.movieDao().findMovieByName(movie.name);
-                database.movieDao().deleteRow(deleted.name);
+                Movie_ deleted = database.movieDao().findMovieById(movie.id);
+                database.movieDao().deleteRow(deleted.id);
                 movie.rating = originalRating;
                 database.movieDao().insert(movie);
                 return true;

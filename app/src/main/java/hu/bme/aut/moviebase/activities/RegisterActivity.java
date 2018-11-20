@@ -19,7 +19,6 @@ import hu.bme.aut.moviebase.data.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    //private static String USER_KEY;
     private List<User> users;
     private static final int START_MONEY = 30000;
     private MovieDatabase database;
@@ -59,18 +58,18 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (emailRegister.getText().toString().isEmpty()) {
                     emailRegister.requestFocus();
-                    emailRegister.setError("Please enter your email address");
+                    emailRegister.setError(getString(R.string.enter_email));
                     return;
                 }
 
                 if (passwordRegister.getText().toString().isEmpty()) {
                     passwordRegister.requestFocus();
-                    passwordRegister.setError("Please enter your password");
+                    passwordRegister.setError(getString(R.string.register_password));
                     return;
                 }
 
                 if(!(cbAgree.isChecked())) {
-                    Snackbar.make(findViewById(android.R.id.content), "You can not continue with the checkbox unchecked.", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content), R.string.cb_checked, Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
@@ -80,32 +79,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                 for(User user : users) {
                     if (emailRegister.getText().toString().equals(user.email)) {
-                        Toast.makeText(getBaseContext(), "User already exists!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), R.string.user_exists, Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
 
                 database.userDao().insert(u);
-                Toast.makeText(getBaseContext(), "Registration was successful!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.reg_success, Toast.LENGTH_LONG).show();
                 finish();
-
-                /*USER_KEY = emailRegister.getText().toString();
-                SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-
-                File f = new File("/data/data/hu.bme.aut.moviebase/shared_prefs/"+USER_KEY+".xml");
-                if(f.exists()){
-                    Toast.makeText(getBaseContext(), "User already exists!", Toast.LENGTH_LONG).show();
-                }
-
-                else {
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(emailRegister.getText().toString(), passwordRegister.getText().toString());
-                    editor.apply();
-
-                    Toast.makeText(getBaseContext(), "Registration was successful!", Toast.LENGTH_LONG).show();
-
-                    finish();
-                }*/
             }
         });
     }

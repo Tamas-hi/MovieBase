@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <TextView
-        android:id="@+id/categoryTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category"
@@ -50,7 +49,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <TextView
-        android:id="@+id/descTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description"
@@ -72,7 +70,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/LengthTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/length"
@@ -98,7 +95,8 @@
             android:layout_height="wrap_content"
             android:text="@string/rate_this_film_here"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            tools:ignore="RelativeOverlap" />
 
         <RatingBar
             android:id="@+id/userRating"
@@ -113,16 +111,33 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <Button
         android:id="@+id/btnSaveRating"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_gravity="end"
         android:background="@drawable/rounded_button_inverse"
         android:text="@string/save_rating"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="16dp"
         style="@style/AppTheme"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:id="@+id/btnBackDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text = "@string/go_back"
+        android:background="@drawable/rounded_button_inverse"
+        android:textColor="@color/black"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 </LinearLayout>

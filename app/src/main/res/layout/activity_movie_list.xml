@@ -17,24 +17,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "@string/status_logged_in"
+                android:text="@string/status_logged_in"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
-                android:layout_gravity = "start|center"
-                android:textStyle="bold"
-                />
+                android:layout_gravity="start|center"
+                android:textStyle="bold" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_dollar_sign"
                 android:layout_marginStart="40dp"
                 android:contentDescription="@string/dollar_sign" />
+
             <TextView
                 android:id="@+id/tvMoney"
                 android:layout_width="wrap_content"
@@ -43,6 +43,7 @@
                 android:textSize="18sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/white"/>
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -60,7 +61,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text = "@string/my_collection"
-        android:layout_gravity="bottom"
         android:background="@drawable/rounded_button_inverse"
         android:textColor="@color/black"
         android:layout_marginStart="16dp"
@@ -70,13 +70,11 @@
         android:id="@+id/btnUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:background="@drawable/rounded_button_inverse"
         android:textColor="@color/black"
-        android:text="USERS"
+        android:text="@string/users"
         android:layout_marginStart="16dp"
-        android:layout_centerInParent="true"
-        />
+        android:layout_centerInParent="true" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -86,7 +84,8 @@
         android:layout_gravity="end"
         app:srcCompat="@drawable/ic_add_black_36dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp"
+        tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
 

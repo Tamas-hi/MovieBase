@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:text = "GO BACK"
+        android:text = "@string/go_back"
         android:background="@drawable/rounded_button_inverse"
         android:textColor="@color/black"/>
 

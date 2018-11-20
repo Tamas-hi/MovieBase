@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 public class MovieTouchHelperCallback extends ItemTouchHelper.Callback {
-    private TouchHelperNotifier touchHelperNotifier;
+    private final TouchHelperNotifier touchHelperNotifier;
 
     public MovieTouchHelperCallback(TouchHelperNotifier touchHelperNotifier) {
         this.touchHelperNotifier = touchHelperNotifier;

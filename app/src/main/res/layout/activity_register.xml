@@ -29,7 +29,6 @@
         android:layout_marginBottom="10dp"/>
 
     <LinearLayout
-        android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -60,8 +59,6 @@
             android:layout_height="40dp"
             android:hint="@string/enter_password"
             android:inputType="textPassword"
-            android:imeActionId="6"
-            android:imeOptions="actionUnspecified"
             android:maxLines="1"
             android:singleLine="true"
             android:background="@drawable/rounded_edittext"
@@ -76,17 +73,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="10dp">
+
         <CheckBox
             android:id="@+id/cbAgree"
             android:layout_width="wrap_content"
             android:layout_height="40dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/agree_msg"
                 android:textStyle="italic"
-                android:textColor="@color/black"
-                />
+                android:textColor="@color/black" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -119,5 +118,5 @@
 
         </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>

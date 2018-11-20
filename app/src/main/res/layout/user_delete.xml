@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center_vertical">
 
     <TextView
-        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter user name to delete: " />
+        android:text="@string/enter_user_name_to_delete"
+        android:layout_marginStart="20dp"/>
 
     <EditText
         android:id="@+id/etEmail"
@@ -18,17 +19,41 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/white"
-        android:hint="username"
+        android:hint="@string/username"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnDeleteAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_all"
+        android:background="@drawable/rounded_button_inverse"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        tools:ignore="RelativeOverlap" />
 
     <Button
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Delete"
+        android:text="@string/delete"
         android:background="@drawable/rounded_button_inverse"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd = "20dp"
+        tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
 </LinearLayout>

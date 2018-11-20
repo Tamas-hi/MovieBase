@@ -8,12 +8,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-@Entity(tableName = "movie")//foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "id"))
+@Entity(tableName = "movie")
 public class Movie_ implements Parcelable {
 
     public Movie_(){
 
     }
+
     private Movie_(Parcel in){
         id = in.readLong();
         name = in.readString();
@@ -51,7 +52,7 @@ public class Movie_ implements Parcelable {
         dest.writeFloat(rating);
         dest.writeInt(price);
     }
-    // id, name, category, length, description, rating, price
+
 
     public enum Category{
         ACTION, DOCUMENTARY, HORROR, COMEDY, ROMANCE;

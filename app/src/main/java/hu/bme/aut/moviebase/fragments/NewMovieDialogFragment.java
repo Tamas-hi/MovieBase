@@ -67,6 +67,7 @@ public class NewMovieDialogFragment extends DialogFragment {
     private View getContentView(){
         final ViewGroup nullParent= null;
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_movie,nullParent);
+
         nameEditText = contentView.findViewById(R.id.MovieNameEditText);
         categorySpinner = contentView.findViewById(R.id.MovieCategorySpinner);
         categorySpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.category_items)));
@@ -74,9 +75,11 @@ public class NewMovieDialogFragment extends DialogFragment {
         descriptionEditText = contentView.findViewById(R.id.MovieDescriptionEditText);
         priceEditText = contentView.findViewById(R.id.MoviePriceEditText);
         numberPicker = contentView.findViewById(R.id.RatingPicker);
+
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(5);
         numberPicker.setWrapSelectorWheel(true);
+
         return contentView;
     }
 
@@ -88,17 +91,21 @@ public class NewMovieDialogFragment extends DialogFragment {
         Movie_ movie = new Movie_();
         movie.name = nameEditText.getText().toString();
         movie.category = Movie_.Category.getByOrdinal(categorySpinner.getSelectedItemPosition());
+
         try{
             movie.length = Integer.parseInt(lengthEditText.getText().toString());
         }catch (NumberFormatException e){
             movie.length = 0;
         }
+
         movie.description = descriptionEditText.getText().toString();
+
         try{
             movie.price = Integer.parseInt(priceEditText.getText().toString());
         }catch(NumberFormatException e){
             movie.price = 0;
         }
+
         movie.rating = numberPicker.getValue();
         return movie;
     }

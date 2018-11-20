@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,14 +88,30 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
                     final ViewGroup nullView = null;
                     final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.user_delete, nullView);
-                    final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     final EditText etUserEmail = popupView.findViewById(R.id.etEmail);
+                    final Button btnDelete = popupView.findViewById(R.id.btnDelete);
+                    final Button btnDeleteAll = popupView.findViewById(R.id.btnDeleteAll);
 
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
                     popupWindow.setFocusable(true);
                     popupWindow.update();
 
-                    final Button btnDelete = popupView.findViewById(R.id.btnDelete);
+                    btnDeleteAll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final List<User> allUsers = database.userDao().getAll();
+                            if(allUsers.isEmpty()) {
+                                Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
+                                popupWindow.dismiss();
+                                }
+                            else {
+                                deleteAllUsersInBackground();
+                                Snackbar.make(findViewById(android.R.id.content), R.string.all_deleted, Snackbar.LENGTH_LONG).show();
+                                popupWindow.dismiss();
+                            }
+                        }
+                    });
 
                     btnDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -222,12 +237,12 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         }
     }
 
-    protected static void loadItemsInBackground() {
+    static void loadItemsInBackground() {
         new AsyncTask<Void, Void, List<Movie_>>() {
 
             @Override
             protected List<Movie_> doInBackground(Void... voids) {
-                return database.movieDao().getAll();
+                return database.movieDao().getAllNoUser();
             }
 
             @Override
@@ -237,8 +252,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         }.execute();
     }
 
-    @Override
-    public void onAllItemDeleted(){
+    private static void onAllItemDeleted(){
         new AsyncTask<Void, Void, Boolean>(){
 
             @Override
@@ -247,23 +261,6 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 return true;
             }
 
-        }.execute();
-    }
-
-    @Override
-    public void onItemChanged(final Movie_ item) {
-        new AsyncTask<Void, Void, Boolean>() {
-
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                database.movieDao().update(item);
-                return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean isSuccessful) {
-                Log.d("MovieListActivity", "Movie update was successful");
-            }
         }.execute();
     }
 
@@ -301,13 +298,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         new AlertDialog.Builder(this)
                 .setTitle(R.string.exit)
                 .setMessage(R.string.log_off)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
-                .setNegativeButton("No",null)
+                .setNegativeButton(R.string.no,null)
                 .show();
     }
 
@@ -322,8 +319,8 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             @Override
             protected Boolean doInBackground(Void... voids){
-                User deleted = database.userDao().findUserByEmail(u.email);
-                database.userDao().deleteRow(deleted.email);
+                User deleted = database.userDao().findUserById(u.id);
+                database.userDao().deleteRow(deleted.id);
                 database.userDao().insert(u);
                 return true;
             }
@@ -336,9 +333,19 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             @Override
             protected Boolean doInBackground(Void... voids) {
-                Movie_ movieDeleted = database.movieDao().findMovieByName(item.name);
-                database.movieDao().deleteRow(movieDeleted.name);
+                Movie_ movieDeleted = database.movieDao().findMovieById(item.id);
+                database.movieDao().deleteRow(movieDeleted.id);
                 database.movieDao().insert(item);
+                return true;
+            }
+        }.execute();
+    }
+
+    private static void deleteAllUsersInBackground(){
+        new AsyncTask<Void, Void, Boolean>(){
+            @Override
+            protected Boolean doInBackground(Void... voids){
+                database.userDao().deleteAll();
                 return true;
             }
         }.execute();

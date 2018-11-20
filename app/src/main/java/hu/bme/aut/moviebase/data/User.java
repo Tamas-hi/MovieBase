@@ -16,10 +16,10 @@ public class User implements Parcelable {
     public long id;
 
     @ColumnInfo(name = "email")
-    public String email;
+    public final String email;
 
     @ColumnInfo(name = "password")
-    public String password;
+    public final String password;
 
     @ColumnInfo(name = "money")
     public int money;

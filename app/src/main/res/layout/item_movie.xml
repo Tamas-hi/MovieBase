@@ -8,7 +8,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="8dp"
-    android:id="@+id/itemLayout"
     android:background="@drawable/movie_item_background">
 
     <LinearLayout
@@ -36,8 +35,8 @@
         android:numStars="5"
         android:stepSize="0.5"
         android:isIndicator="true"
-        android:focusable="true"
-        />
+        android:focusable="true" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -54,8 +53,8 @@
             android:textColor="@color/color_toolbar"
             android:layout_marginTop="10dp"
             android:gravity="end"
-            android:focusable="true"
-            />
+            android:focusable="true" />
+
         <Button
             android:id="@+id/btnBuy"
             android:layout_gravity="end"
@@ -67,6 +66,7 @@
             android:background="@drawable/rounded_grey_button"
             android:textColor="@color/red"
             android:layout_marginTop="5dp" />
+
     </LinearLayout>
 
 </LinearLayout>

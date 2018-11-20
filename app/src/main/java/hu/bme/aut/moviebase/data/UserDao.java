@@ -7,13 +7,11 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
-
 @Dao
 public interface UserDao {
 
-    @Query("SELECT * FROM user WHERE email = :email")
-    User findUserByEmail(String email);
+    @Query("SELECT * FROM user WHERE id = :id")
+    User findUserById(long id);
 
     @Query("SELECT * FROM user")
     List<User> getAll();
@@ -21,21 +19,12 @@ public interface UserDao {
     @Insert
     void insert(User users);
 
-    @Query("UPDATE user SET money = :money WHERE id =:id")
-    void update(long id, int money);
+    @Delete
+    void delete(User user);
 
-   @Delete
-   void delete(User user);
-
-   @Query("DELETE FROM user WHERE email = :email")
-   void deleteRow(String email);
+    @Query("DELETE FROM user WHERE id = :id")
+    void deleteRow(long id);
 
     @Query("DELETE FROM user")
     void deleteAll();
-
-    @Insert(onConflict = REPLACE)
-    void insertAll(List<User> users);
-
-    @Query("DELETE FROM user WHERE id= :id AND money = 30000")
-    void deleteOld(long id);
 }
