@@ -20,7 +20,7 @@ public interface MovieDao {
     List<Movie_> getAllMoviesFromUser(long id);
 
     @Insert
-    long insert(Movie_ movies);
+    void insert(Movie_ movies);
 
     @Update
     void update(Movie_ movie);

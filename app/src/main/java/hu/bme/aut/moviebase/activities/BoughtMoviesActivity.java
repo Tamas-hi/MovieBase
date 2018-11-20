@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -42,6 +44,14 @@ public class BoughtMoviesActivity extends AppCompatActivity{
         database = MovieDatabase.getDatabase(getApplicationContext());
 
         initRecyclerView();
+
+        final Button btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private static void loadItemsInBackground() {

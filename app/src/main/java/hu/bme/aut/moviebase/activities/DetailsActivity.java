@@ -61,14 +61,15 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private static void saveRatingInBackground(){
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Boolean>(){
+
             @Override
-            protected Void doInBackground(Void... voids){
+            protected Boolean doInBackground(Void... voids){
                 Movie_ deleted = database.movieDao().findMovieByName(movie.name);
                 database.movieDao().deleteRow(deleted.name);
                 movie.rating = originalRating;
                 database.movieDao().insert(movie);
-                return null;
+                return true;
             }
         }.execute();
     }

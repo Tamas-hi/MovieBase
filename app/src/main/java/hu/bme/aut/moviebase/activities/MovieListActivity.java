@@ -38,7 +38,6 @@ import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.User;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
-//import hu.bme.aut.moviebase.data.BoughtMovies;
 
 public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface, MovieAdapter.BuyMovieClickListener{
 
@@ -46,34 +45,31 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     private static MovieAdapter adapter;
     private static MovieDatabase database;
     private boolean adminLogOn;
-    private User u;
+    private static User u;
     private TextView tvMoney;
-    //private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
+
         Intent intent = getIntent();
-        //float newRating = intent.getFloatExtra("newRating", 10.0f);
-        /*if(newRating >= 0 && newRating <=5) {
-            adapter.notifyDataSetChanged();
-        }*/
         u = intent.getParcelableExtra("userdata");
-        //users = intent.getParcelableArrayListExtra("users");
         adminLogOn = intent.getBooleanExtra("admin", false);
+
         tvMoney = findViewById(R.id.tvMoney);
         if(!adminLogOn) {
             tvMoney.setText(String.valueOf(u.money));
         }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(null);
 
         final Button btnCollection = findViewById(R.id.btnCollection);
         final Button btnUsers = findViewById(R.id.btnUsers);
         final FloatingActionButton fab = findViewById(R.id.fab);
+
         database = MovieDatabase.getDatabase(getApplicationContext());
 
         if(adminLogOn) {
@@ -90,33 +86,38 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 @Override
                 public void onClick(View v) {
                     LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
                     final ViewGroup nullView = null;
-                    final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.user_delete,nullView);
+                    final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.user_delete, nullView);
                     final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     final EditText etUserEmail = popupView.findViewById(R.id.etEmail);
+
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
                     popupWindow.setFocusable(true);
                     popupWindow.update();
 
-                    Button btnDelete = popupView.findViewById(R.id.btnDelete);
+                    final Button btnDelete = popupView.findViewById(R.id.btnDelete);
+
                     btnDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             String email = etUserEmail.getText().toString();
                             final List<User> allUsers = database.userDao().getAll();
+
                             if(allUsers.isEmpty()) {
-                                //Toast.makeText(getBaseContext(), "There is no registered user.", Toast.LENGTH_LONG).show();
-                                Snackbar.make(findViewById(android.R.id.content), "There is no registered user.", Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
                                 popupWindow.dismiss();
-                            }else{
+                            }
+
+                            else {
                             for(User u: allUsers) {
                                 if (u.email.equals(email)) {
                                     database.userDao().delete(u);
                                     popupWindow.dismiss();
-                                    Snackbar.make(findViewById(android.R.id.content), "User deleted", Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(findViewById(android.R.id.content), R.string.user_deleted, Snackbar.LENGTH_LONG).show();
                                     break;
                                 } else {
-                                    Snackbar.make(findViewById(android.R.id.content), "User not found", Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(findViewById(android.R.id.content), R.string.user_not_found, Snackbar.LENGTH_LONG).show();
                                     popupWindow.dismiss();
                                 }
                             }
@@ -125,13 +126,12 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     });
                 }
             });
-        }else{
+        }
+        else{
             fab.hide();
             btnUsers.setVisibility(View.INVISIBLE);
         }
 
-
-        //database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
         initRecyclerView();
 
         btnCollection.setOnClickListener(new View.OnClickListener() {
@@ -155,17 +155,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         return true;
     }
 
-    /*public User getUser(){
-        return u;
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-
-            //case R.id.menuRefresh:
-               // loadItemsInBackground();
-               // break;
 
             case R.id.sortByTitle:
                 Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
@@ -186,6 +178,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 });
                 adapter.notifyDataSetChanged();
                 break;
+
             case R.id.action_settings:
                 adapter.deleteAllItem();
                 onAllItemDeleted();
@@ -193,10 +186,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             case R.id.about:
                 LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
                 final ViewGroup nullView = null;
                 final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.popup_window, nullView);
                 final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
                 popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
+
                 Button btnAboutOk = popupView.findViewById(R.id.btnAboutOk);
                 btnAboutOk.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -211,9 +207,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this,this,this, u, adminLogOn);//this,  u);
+        adapter = new MovieAdapter(this,this,this, u, adminLogOn);
         loadItemsInBackground();
-        //loadUsersInBackground();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -224,33 +220,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
             touchHelper.attachToRecyclerView(recyclerView);
         }
-
-        /*ItemTouchHelper.Callback callback2 = new RVHItemTouchHelperCallback(adapter,true,true,true);
-        ItemTouchHelper touchHelper2 = new ItemTouchHelper(callback);
-        touchHelper2.attachToRecyclerView(recyclerView);
-
-        recyclerView.addOnItemTouchListener(new RVHItemClickListener(this, new RVHItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(MovieListActivity.this, DetailsActivity.class);
-                intent.putExtra("MovieItem",adapter.getMovie(position));
-                startActivity(intent);
-            }
-        }));*/
-
     }
 
-    /*private void loadUsersInBackground(){
-        new AsyncTask<Void, Void, List<User>>(){
-            @Override
-            protected List<User> doInBackground(Void...voids){
-                return database.userDao().getAll();
-            }
-        }.execute();
-    }*/
-
-    public static void loadItemsInBackground() {
+    protected static void loadItemsInBackground() {
         new AsyncTask<Void, Void, List<Movie_>>() {
+
             @Override
             protected List<Movie_> doInBackground(Void... voids) {
                 return database.movieDao().getAll();
@@ -296,12 +270,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     @Override
     public void onItemDeleted(final Movie_ item) {
         new AsyncTask<Void, Void, Boolean>(){
+
             @Override
             protected Boolean doInBackground(Void... voids){
-                /*if(item.uid == null){
-                    return true;
-                }
-                if(item.uid != null)*/
                 database.movieDao().deleteItem(item);
                 return true;
             }
@@ -314,7 +285,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             @Override
             protected Movie_ doInBackground(Void... voids) {
-                newMovie.id = database.movieDao().insert(newMovie);
+                database.movieDao().insert(newMovie);
                 return newMovie;
             }
 
@@ -328,8 +299,8 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     @Override
     public void onBackPressed(){
         new AlertDialog.Builder(this)
-                .setTitle("Exit")
-                .setMessage("Are you sure you want to log off?")
+                .setTitle(R.string.exit)
+                .setMessage(R.string.log_off)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -344,24 +315,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     public void onBuyClick(int money) {
         tvMoney.setText(String.valueOf(u.money));
         updateMoneyInBackground();
-        //User deleted = database.userDao().findUserByEmail(u.email);
-        //database.userDao().deleteRow(deleted.email);
-        //database.userDao().insert(u);
-        //database.userDao().deleteAll();
-        //users.remove(u);
-        //users.add(u);
-        //database.userDao().insert(u);
-        //database.userDao().deleteRow(u.id);
-        //database.userDao().deleteAll();
-        //database.userDao().insert(u);
-        /*List<User> users = database.userDao().getAll();
-        database.userDao().deleteAll();
-        database.userDao().insertAll(users);
-        database.userDao().insert(u);*/
     }
 
-    private void updateMoneyInBackground(){
+    private static void updateMoneyInBackground(){
         new AsyncTask<Void, Void, Boolean>(){
+
             @Override
             protected Boolean doInBackground(Void... voids){
                 User deleted = database.userDao().findUserByEmail(u.email);
@@ -373,10 +331,16 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     }
 
     @Override
-    public void onItemBought(Movie_ item) {
-        Movie_ movieDeleted = database.movieDao().findMovieByName(item.name);
-        database.movieDao().deleteRow(movieDeleted.name);
-        database.movieDao().insert(item);
-        //adapter.addBoughtMovies(item);
+    public void onItemBought(final Movie_ item) {
+        new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                Movie_ movieDeleted = database.movieDao().findMovieByName(item.name);
+                database.movieDao().deleteRow(movieDeleted.name);
+                database.movieDao().insert(item);
+                return true;
+            }
+        }.execute();
     }
 }

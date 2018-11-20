@@ -19,7 +19,7 @@ public interface UserDao {
     List<User> getAll();
 
     @Insert
-    long insert(User users);
+    void insert(User users);
 
     @Query("UPDATE user SET money = :money WHERE id =:id")
     void update(long id, int money);

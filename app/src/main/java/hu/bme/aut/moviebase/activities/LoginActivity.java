@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static void loadItemsInBackground() {
         new AsyncTask<Void, Void, List<User>>() {
+
             @Override
             protected List<User> doInBackground(Void... voids) {
                 return database.userDao().getAll();
