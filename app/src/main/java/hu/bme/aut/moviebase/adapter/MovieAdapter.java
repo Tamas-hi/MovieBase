@@ -23,23 +23,32 @@ import hu.bme.aut.moviebase.data.MoneyInterface;
 import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.User;
 
+//import hu.bme.aut.moviebase.data.BoughtMovies;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
 
     private List<Movie_> items;
+    //private List<BoughtMovies> boughtItems;
     private MovieItemClickListener listener;
+    private BuyMovieClickListener buyListener;
     private MoneyInterface m;
     //public int money = 30000;
     private User u;
     private boolean adminLogOn;
+    private boolean BoughtMovies;
 
 
-    public MovieAdapter(){
-
+    public MovieAdapter(boolean BoughtMovies){
+        items = new ArrayList<>();
+        this.BoughtMovies = BoughtMovies;
     }
 
-    public MovieAdapter(MovieItemClickListener listener, MoneyInterface m, User u, boolean adminLogOn){ //MoneyInterface m, User u){
+
+    public MovieAdapter(MovieItemClickListener listener, BuyMovieClickListener buyListener, MoneyInterface m, User u, boolean adminLogOn){ //MoneyInterface m, User u){
         this.listener = listener;
+        this.buyListener = buyListener;
         items = new ArrayList<>();
+        //boughtItems = new ArrayList<>();
         this.m = m;
         this.u = u;
         this.adminLogOn = adminLogOn;
@@ -52,8 +61,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie,parent,false);
-        return new MovieViewHolder(itemView);
+        if(BoughtMovies){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie2,parent,false);
+            return new MovieViewHolder(itemView);
+        }else{
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+            return new MovieViewHolder(itemView);
+        }
     }
 
     @Override
@@ -83,11 +97,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void onItemDeleted(Movie_ item);
         void onAllItemDeleted();
     }
+/*
+    public interface BuyMovieClickListener{
+        void onItemBought(BoughtMovies item);
+    }*/
+
+    public interface BuyMovieClickListener{
+        void onItemBought(Movie_ item);
+    }
 
     public void addMovie(Movie_ movie){
         items.add(movie);
         notifyItemInserted(items.size() - 1);
     }
+
+    /*public void addBoughtMovies(BoughtMovies movie){
+        boughtItems.add(movie);
+        notifyItemInserted(boughtItems.size() - 1);
+    }*/
 
     public void deleteItem(Movie_ movie){
         items.remove(movie);
@@ -117,61 +144,76 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Button btnBuy;
 
         Movie_ movie;
+        //BoughtMovies boughtMovies = new BoughtMovies();
 
         @SuppressLint("ClickableViewAccessibility")
-        MovieViewHolder(View itemView){
+        MovieViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.tvMovieName);
             movieRating = itemView.findViewById(R.id.ratingBar);
             priceTextView = itemView.findViewById(R.id.tvPrice);
             btnBuy = itemView.findViewById(R.id.btnBuy);
-
-            btnBuy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!adminLogOn) {
-                        u.money = u.money - movie.price;
-                        m.onBuyClick(u.money);
-                    }
-                        //listener.onItemChanged(movie);
+            if (adminLogOn && !BoughtMovies) {
+                btnBuy.setVisibility(View.INVISIBLE);
+            }
+            if (!BoughtMovies) {
+                btnBuy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    /*boughtMovies.name = movie.name;
+                    boughtMovies.category = movie.category;
+                    boughtMovies.description = movie.description;
+                    boughtMovies.length = movie.length;
+                    boughtMovies.price = movie.price;
+                    boughtMovies.rating = movie.rating;
+                    boughtMovies.uid = u.id;*/
+                        movie.uid = u.id;
+                        if (!adminLogOn) {
+                            u.money = u.money - movie.price;
+                            m.onBuyClick(u.money);
+                        }
+                        //boughtItems.add(boughtMovies);
+                        buyListener.onItemBought(movie);
                         deleteItem(movie);
-                        listener.onItemDeleted(movie);
+                        //listener.onItemDeleted(movie);
 
-                }
-            });
+                    }
+                });
 
-            nameTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra("MovieItem",movie);
-                    context.startActivity(intent);
-                }
-            });
 
-            movieRating.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if(event.getAction() == MotionEvent.ACTION_UP){
+                nameTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, DetailsActivity.class);
-                        intent.putExtra("MovieItem",movie);
+                        intent.putExtra("MovieItem", movie);
                         context.startActivity(intent);
                     }
-                    return true;
-                }
-            });
+                });
 
-            priceTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra("MovieItem",movie);
-                    context.startActivity(intent);
-                }
-            });
+                movieRating.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            Context context = v.getContext();
+                            Intent intent = new Intent(context, DetailsActivity.class);
+                            intent.putExtra("MovieItem", movie);
+                            context.startActivity(intent);
+                        }
+                        return true;
+                    }
+                });
+
+                priceTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, DetailsActivity.class);
+                        intent.putExtra("MovieItem", movie);
+                        context.startActivity(intent);
+                    }
+                });
+            }
         }
     }
 }

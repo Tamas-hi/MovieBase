@@ -3,6 +3,7 @@ package hu.bme.aut.moviebase.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -23,6 +24,14 @@ public class User implements Parcelable {
     @ColumnInfo(name = "money")
     public int money;
 
+    public User(long id, String email, String password, int money){
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.money = money;
+    }
+
+    @Ignore
     public User(String email, String password, int money){
         this.email = email;
         this.password = password;
@@ -30,6 +39,7 @@ public class User implements Parcelable {
     }
 
     private User(Parcel in) {
+        id = in.readLong();
         email = in.readString();
         password = in.readString();
         money = in.readInt();
@@ -54,6 +64,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeString(email);
         dest.writeString(password);
         dest.writeInt(money);

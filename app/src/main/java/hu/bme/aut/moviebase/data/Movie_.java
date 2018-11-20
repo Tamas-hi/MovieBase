@@ -15,7 +15,7 @@ public class Movie_ implements Parcelable {
 
     }
     private Movie_(Parcel in){
-        //id = in.readLong();
+        id = in.readLong();
         name = in.readString();
         category = (Category) in.readSerializable();
         length = in.readInt();
@@ -43,12 +43,7 @@ public class Movie_ implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        /*if (id == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeLong(id);
-        }*/
+        dest.writeLong(id);
         dest.writeString(name);
         dest.writeSerializable(category);
         dest.writeInt(length);
@@ -101,4 +96,7 @@ public class Movie_ implements Parcelable {
 
     @ColumnInfo(name = "price")
     public int price;
+
+    @ColumnInfo(name = "uid")
+    public long uid;
 }

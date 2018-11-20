@@ -52,6 +52,9 @@
     <string name="sort_by_rating">Sort by rating</string>
     <string name="delete_all">Delete all</string>
     <string name="about">About</string>
+    <string name="new_rating">New rating: </string>
+    <string name="no_registered_user">There is no registered user.</string>
+    <string name="wrong_email_password">Wrong email / password!</string>
     <string-array name="category_items">
         <item>Action</item>
         <item>Documentary</item>

@@ -7,7 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 @Database(
-        entities = {Movie_.class , User.class},
+        entities = {Movie_.class , User.class}, //BoughtMovies.class},
         version = 1,
         exportSchema = false
 )
@@ -30,4 +30,5 @@ public abstract class MovieDatabase extends RoomDatabase{
 
     public abstract MovieDao movieDao();
     public abstract UserDao userDao();
+    //public abstract BoughtMoviesDao boughtMoviesDao();
 }

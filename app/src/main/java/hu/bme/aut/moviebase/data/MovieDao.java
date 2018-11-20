@@ -10,8 +10,14 @@ import java.util.List;
 
 @Dao
 public interface MovieDao {
-    @Query("SELECT * FROM movie")
+    /*@Query("SELECT * FROM movie")
+    List<Movie_> getAll();*/
+
+    @Query("SELECT * FROM movie WHERE uid = 0")
     List<Movie_> getAll();
+
+    @Query("SELECT * FROM movie WHERE uid = :id")
+    List<Movie_> getAllMoviesFromUser(long id);
 
     @Insert
     long insert(Movie_ movies);

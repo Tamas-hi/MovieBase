@@ -1,7 +1,5 @@
 package hu.bme.aut.moviebase.activities;
 
-import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,12 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,7 +38,9 @@ import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.User;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
-public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface{
+//import hu.bme.aut.moviebase.data.BoughtMovies;
+
+public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface, MovieAdapter.BuyMovieClickListener{
 
 
     private static MovieAdapter adapter;
@@ -80,6 +77,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         database = MovieDatabase.getDatabase(getApplicationContext());
 
         if(adminLogOn) {
+            btnCollection.setVisibility(View.INVISIBLE);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -116,6 +114,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                                     database.userDao().delete(u);
                                     popupWindow.dismiss();
                                     Snackbar.make(findViewById(android.R.id.content), "User deleted", Snackbar.LENGTH_LONG).show();
+                                    break;
                                 } else {
                                     Snackbar.make(findViewById(android.R.id.content), "User not found", Snackbar.LENGTH_LONG).show();
                                     popupWindow.dismiss();
@@ -134,6 +133,15 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
         //database = Room.databaseBuilder(getApplicationContext(),MovieDatabase.class , "movie-list").allowMainThreadQueries().build();
         initRecyclerView();
+
+        btnCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieListActivity.this, BoughtMoviesActivity.class);
+                intent.putExtra("userdata", u);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -203,17 +211,19 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this,this, u, adminLogOn);//this,  u);
+        adapter = new MovieAdapter(this,this,this, u, adminLogOn);//this,  u);
         loadItemsInBackground();
         //loadUsersInBackground();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        ItemTouchHelper.Callback callback =
-                new MovieTouchHelperCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
+        if(adminLogOn) {
+            ItemTouchHelper.Callback callback =
+                    new MovieTouchHelperCallback(adapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+            touchHelper.attachToRecyclerView(recyclerView);
+        }
 
         /*ItemTouchHelper.Callback callback2 = new RVHItemTouchHelperCallback(adapter,true,true,true);
         ItemTouchHelper touchHelper2 = new ItemTouchHelper(callback);
@@ -288,6 +298,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         new AsyncTask<Void, Void, Boolean>(){
             @Override
             protected Boolean doInBackground(Void... voids){
+                /*if(item.uid == null){
+                    return true;
+                }
+                if(item.uid != null)*/
                 database.movieDao().deleteItem(item);
                 return true;
             }
@@ -356,5 +370,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 return true;
             }
         }.execute();
+    }
+
+    @Override
+    public void onItemBought(Movie_ item) {
+        Movie_ movieDeleted = database.movieDao().findMovieByName(item.name);
+        database.movieDao().deleteRow(movieDeleted.name);
+        database.movieDao().insert(item);
+        //adapter.addBoughtMovies(item);
     }
 }

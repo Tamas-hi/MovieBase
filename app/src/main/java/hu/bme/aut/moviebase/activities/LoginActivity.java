@@ -2,6 +2,7 @@ package hu.bme.aut.moviebase.activities;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,27 +21,29 @@ import java.util.Objects;
 
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.UI_Helper.Rotate3dAnimation;
+import hu.bme.aut.moviebase.adapter.MovieAdapter;
 import hu.bme.aut.moviebase.data.MovieDatabase;
+import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.User;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ImageView img;
     private static final String EMPTY_STRING = "";
-    //private static String USER_KEY = "";
     private List<User> users;
-    private boolean adminLogOn = false;
+    private static MovieDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         }catch (Exception e){
             e.printStackTrace();
         }
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         img = findViewById(R.id.popcorn_3d);
 
         final EditText etEmailAddress = findViewById(R.id.email);
@@ -51,11 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         final Button btnRegister = findViewById(R.id.RegisterButton);
         final TextClock textClock = findViewById(R.id.textClock);
 
-        final MovieDatabase database = MovieDatabase.getDatabase(getApplicationContext());
-        users = database.userDao().getAll();
+        database = MovieDatabase.getDatabase(getApplicationContext());
 
+        loadItemsInBackground();
 
-        textClock.setFormat12Hour(null);
         textClock.setFormat24Hour(getString(R.string.dateFormat));
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -70,11 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                // admin LOGON
+
                 if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
                     Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
-                    adminLogOn = true;
-                    intent.putExtra("admin", adminLogOn);
+                    intent.putExtra("admin", true);
                     startActivity(intent);
                 }
 
@@ -90,30 +91,20 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // user LOGON
-                /*USER_KEY = etEmailAddress.getText().toString();
-                SharedPreferences preferences = getSharedPreferences(USER_KEY, Context.MODE_PRIVATE);
-                String password = preferences.getString(USER_KEY, "");
-                    if (password.equals(etPassword.getText().toString())) {
-                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
-                        startActivity(intent);
-                    }*/
-
                users = database.userDao().getAll();
                if(users.isEmpty()){
-                   Snackbar.make(findViewById(android.R.id.content), "There is no registered user.", Snackbar.LENGTH_LONG).show();
+                   Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
                }
 
                for(User u : users) {
                    if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                        intent.putExtra("userdata", u);
-                       adminLogOn = false;
-                       intent.putExtra("admin",adminLogOn);
-                       //intent.putParcelableArrayListExtra("users", (ArrayList<? extends Parcelable>) users);
+                       intent.putExtra("admin",false);
                        startActivity(intent);
+                       break;
                    }else{
-                       Snackbar.make(findViewById(android.R.id.content), "Wrong email / password!", Snackbar.LENGTH_LONG).show();
+                       Snackbar.make(findViewById(android.R.id.content), R.string.wrong_email_password, Snackbar.LENGTH_LONG).show();
                    }
                }
             }
@@ -156,5 +147,14 @@ public class LoginActivity extends AppCompatActivity {
             anim.setRepeatCount(Animation.INFINITE);
             img.startAnimation(anim);
         }
+    }
+
+    private static void loadItemsInBackground() {
+        new AsyncTask<Void, Void, List<User>>() {
+            @Override
+            protected List<User> doInBackground(Void... voids) {
+                return database.userDao().getAll();
+            }
+        }.execute();
     }
 }
