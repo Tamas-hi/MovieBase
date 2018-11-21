@@ -126,7 +126,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
                             else {
                             for(User u: allUsers) {
-                                if (u.email.equals(email)) {
+                                if (Objects.requireNonNull(u.email).equals(email)) {
                                     database.userDao().delete(u);
                                     popupWindow.dismiss();
                                     Snackbar.make(findViewById(android.R.id.content), R.string.user_deleted, Snackbar.LENGTH_LONG).show();
@@ -194,7 +194,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 adapter.notifyDataSetChanged();
                 break;
 
-            case R.id.action_settings:
+            case R.id.action_delete:
                 adapter.deleteAllItem();
                 onAllItemDeleted();
                 break;

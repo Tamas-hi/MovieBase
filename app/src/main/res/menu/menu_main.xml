@@ -14,7 +14,7 @@
         android:title="@string/sort_by_rating"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_delete"
         android:orderInCategory="3"
         android:title="@string/delete_all"
         app:showAsAction="never" />
