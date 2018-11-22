@@ -282,7 +282,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             @Override
             protected Movie_ doInBackground(Void... voids) {
-                database.movieDao().insert(newMovie);
+                newMovie.id = database.movieDao().insert(newMovie);
                 return newMovie;
             }
 
@@ -334,7 +334,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             @Override
             protected Boolean doInBackground(Void... voids) {
                 Movie_ movieDeleted = database.movieDao().findMovieById(item.id);
-                database.movieDao().deleteRow(movieDeleted.id);
+                database.movieDao().deleteItem(movieDeleted);
                 database.movieDao().insert(item);
                 return true;
             }

@@ -17,7 +17,7 @@ public interface MovieDao {
     List<Movie_> getAllMoviesFromUser(long id);
 
     @Insert
-    void insert(Movie_ movies);
+    long insert(Movie_ movies);
 
     @Delete
     void deleteItem(Movie_ movie);

@@ -74,7 +74,7 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             protected Boolean doInBackground(Void... voids){
                 Movie_ deleted = database.movieDao().findMovieById(movie.id);
-                database.movieDao().deleteRow(deleted.id);
+                database.movieDao().deleteItem(deleted);
                 movie.rating = originalRating;
                 database.movieDao().insert(movie);
                 return true;

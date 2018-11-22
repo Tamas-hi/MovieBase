@@ -141,7 +141,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     @Override
                     public void onClick(View v) {
                         movie.uid = u.id;
-
+                        
                         if (!adminLogOn) {
                             u.money = u.money - movie.price;
                             moneyInterface.onBuyClick(u.money);
