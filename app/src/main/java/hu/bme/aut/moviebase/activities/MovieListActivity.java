@@ -46,6 +46,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     private boolean adminLogOn;
     private static User u;
     private TextView tvMoney;
+    private static List<User> allUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     btnDeleteAll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            final List<User> allUsers = database.userDao().getAll();
+                            loadUsersInBackground();
                             if(allUsers.isEmpty()) {
                                 Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
                                 popupWindow.dismiss();
@@ -117,7 +118,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                         @Override
                         public void onClick(View v) {
                             String email = etUserEmail.getText().toString();
-                            final List<User> allUsers = database.userDao().getAll();
+                            loadUsersInBackground();
 
                             if(allUsers.isEmpty()) {
                                 Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
@@ -349,5 +350,21 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 return true;
             }
         }.execute();
+    }
+
+    private static void loadUsersInBackground() {
+        AsyncTask<Void, Void, List<User>> execute = new AsyncTask<Void, Void, List<User>>() {
+
+            @Override
+            protected List<User> doInBackground(Void... voids) {
+                allUsers =  database.userDao().getAll();
+                return allUsers;
+            }
+        }.execute();
+        try{
+            allUsers = execute.get();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

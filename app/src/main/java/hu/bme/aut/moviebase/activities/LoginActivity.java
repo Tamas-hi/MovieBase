@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ImageView img;
     private static final String EMPTY_STRING = "";
-    private List<User> users;
+    private static List<User> users;
     private static MovieDatabase database;
 
     @Override
@@ -89,7 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-               users = database.userDao().getAll();
+                loadItemsInBackground();
+
                if(users.isEmpty()){
                    Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
                }
@@ -148,12 +149,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private static void loadItemsInBackground() {
-        new AsyncTask<Void, Void, List<User>>() {
+        AsyncTask<Void, Void, List<User>> execute = new AsyncTask<Void, Void, List<User>>() {
 
             @Override
             protected List<User> doInBackground(Void... voids) {
-                return database.userDao().getAll();
+                users =  database.userDao().getAll();
+                return users;
             }
         }.execute();
+        try{
+            users = execute.get();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
