@@ -156,6 +156,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                         deleteItem(movie);
                     }
                 });
+            }
 
 
                 nameTextView.setOnClickListener(new View.OnClickListener() {
@@ -163,8 +164,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     public void onClick(View v) {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, DetailsActivity.class);
-                        intent.putExtra("MovieItem", movie);
-                        context.startActivity(intent);
+                        if(BoughtMovies){
+                            intent.putExtra("hideRating",true);
+                            intent.putExtra("MovieItem", movie);
+                            context.startActivity(intent);
+                        }else {
+                            intent.putExtra("hideRating", false);
+                            intent.putExtra("MovieItem", movie);
+                            context.startActivity(intent);
+                        }
                     }
                 });
 
@@ -174,8 +182,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                         if (event.getAction() == MotionEvent.ACTION_UP) {
                             Context context = v.getContext();
                             Intent intent = new Intent(context, DetailsActivity.class);
-                            intent.putExtra("MovieItem", movie);
-                            context.startActivity(intent);
+                            if(BoughtMovies){
+                                intent.putExtra("hideRating",true);
+                                intent.putExtra("MovieItem", movie);
+                                context.startActivity(intent);
+                            }else {
+                                intent.putExtra("hideRating", false);
+                                intent.putExtra("MovieItem", movie);
+                                context.startActivity(intent);
+                            }
                         }
                         return true;
                     }
@@ -186,11 +201,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     public void onClick(View v) {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, DetailsActivity.class);
-                        intent.putExtra("MovieItem", movie);
-                        context.startActivity(intent);
+                        if(BoughtMovies){
+                            intent.putExtra("hideRating",true);
+                            intent.putExtra("MovieItem", movie);
+                            context.startActivity(intent);
+                        }else {
+                            intent.putExtra("hideRating", false);
+                            intent.putExtra("MovieItem", movie);
+                            context.startActivity(intent);
+                        }
                     }
                 });
-            }
+
         }
     }
 }

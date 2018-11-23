@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.data.Movie_;
@@ -27,9 +29,11 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         movie = intent.getParcelableExtra("MovieItem");
+        boolean rating = intent.getBooleanExtra("hideRating", false);
 
         final Button btnSaveRating = findViewById(R.id.btnSaveRating);
         final RatingBar ratingBar = findViewById(R.id.userRating);
+        final TextView ratingText = findViewById(R.id.ratingText);
 
         database = MovieDatabase.getDatabase(getApplicationContext());
 
@@ -50,6 +54,11 @@ public class DetailsActivity extends AppCompatActivity {
         lengthTextView.setText(String.valueOf(length));
         descTextView.setText(description);
 
+        if(rating){
+            btnSaveRating.setVisibility(View.INVISIBLE);
+            ratingText.setVisibility(View.INVISIBLE);
+            ratingBar.setVisibility(View.INVISIBLE);
+        }
         btnSaveRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
