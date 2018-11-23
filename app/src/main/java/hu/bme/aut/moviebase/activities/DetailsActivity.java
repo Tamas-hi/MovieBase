@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import hu.bme.aut.moviebase.R;
 import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.data.Movie_;

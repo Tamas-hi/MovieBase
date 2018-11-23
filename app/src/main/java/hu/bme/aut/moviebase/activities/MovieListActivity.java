@@ -103,11 +103,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                         public void onClick(View v) {
                             loadUsersInBackground();
                             if (allUsers.isEmpty()) {
-                                Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_SHORT).show();
                                 popupWindow.dismiss();
                             } else {
                                 deleteAllUsersInBackground();
-                                Snackbar.make(findViewById(android.R.id.content), R.string.all_deleted, Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(android.R.id.content), R.string.all_deleted, Snackbar.LENGTH_SHORT).show();
                                 popupWindow.dismiss();
                             }
                         }
@@ -120,17 +120,17 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                             loadUsersInBackground();
 
                             if (allUsers.isEmpty()) {
-                                Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_SHORT).show();
                                 popupWindow.dismiss();
                             } else {
                                 for (User u : allUsers) {
                                     if (Objects.requireNonNull(u.email).equals(email)) {
                                         onUserDeleted(u);
                                         popupWindow.dismiss();
-                                        Snackbar.make(findViewById(android.R.id.content), R.string.user_deleted, Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(findViewById(android.R.id.content), R.string.user_deleted, Snackbar.LENGTH_SHORT).show();
                                         break;
                                     } else {
-                                        Snackbar.make(findViewById(android.R.id.content), R.string.user_not_found, Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(findViewById(android.R.id.content), R.string.user_not_found, Snackbar.LENGTH_SHORT).show();
                                         popupWindow.dismiss();
                                     }
                                 }

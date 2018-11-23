@@ -89,9 +89,10 @@
             android:layout_marginEnd="20dp" />
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/ratingText"
@@ -99,8 +100,7 @@
             android:layout_height="wrap_content"
             android:text="@string/rate_this_film_here"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            tools:ignore="RelativeOverlap" />
+            android:layout_marginTop="20dp" />
 
         <RatingBar
             android:id="@+id/userRating"
@@ -109,10 +109,10 @@
             android:numStars="5"
             android:stepSize="0.5"
             android:theme="@style/RatingBar"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp" />
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
