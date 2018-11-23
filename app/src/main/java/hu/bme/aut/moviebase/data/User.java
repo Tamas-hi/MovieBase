@@ -24,7 +24,7 @@ public class User implements Parcelable {
     @ColumnInfo(name = "money")
     public int money;
 
-    public User(long id, String email, String password, int money){
+    public User(long id, String email, String password, int money) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -32,7 +32,7 @@ public class User implements Parcelable {
     }
 
     @Ignore
-    public User(String email, String password, int money){
+    public User(String email, String password, int money) {
         this.email = email;
         this.password = password;
         this.money = money;

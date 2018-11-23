@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.User;
 
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements TouchHelperNotifier {
 
     private final List<Movie_> items;
     private MovieItemClickListener listener;
@@ -34,12 +35,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private boolean adminLogOn;
     private boolean BoughtMovies;
 
-    public MovieAdapter(boolean BoughtMovies){
+    public MovieAdapter(boolean BoughtMovies) {
         items = new ArrayList<>();
         this.BoughtMovies = BoughtMovies;
     }
 
-    public MovieAdapter(MovieItemClickListener listener, BuyMovieClickListener buyListener, MoneyInterface moneyInterface, User u, boolean adminLogOn){
+    public MovieAdapter(MovieItemClickListener listener, BuyMovieClickListener buyListener, MoneyInterface moneyInterface, User u, boolean adminLogOn) {
         this.listener = listener;
         this.buyListener = buyListener;
         items = new ArrayList<>();
@@ -50,11 +51,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        if(BoughtMovies){
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie2, parent,false);
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (BoughtMovies) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie2, parent, false);
             return new MovieViewHolder(itemView);
-        }else{
+        } else {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
             return new MovieViewHolder(itemView);
         }
@@ -70,7 +71,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return items.size();
     }
 
@@ -81,40 +82,40 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyItemRemoved(position);
     }
 
-    public interface MovieItemClickListener{
+    public interface MovieItemClickListener {
         void onItemDeleted(Movie_ item);
     }
 
-    public interface BuyMovieClickListener{
+    public interface BuyMovieClickListener {
         void onItemBought(Movie_ item);
     }
 
-    public void addMovie(Movie_ movie){
+    public void addMovie(Movie_ movie) {
         items.add(movie);
         notifyItemInserted(items.size() - 1);
     }
 
-    private void deleteItem(Movie_ movie){
+    private void deleteItem(Movie_ movie) {
         items.remove(movie);
         notifyDataSetChanged();
     }
 
-    public void deleteAllItem(){
+    public void deleteAllItem() {
         items.clear();
         notifyDataSetChanged();
     }
 
-    public void update(List<Movie_> movies){
+    public void update(List<Movie_> movies) {
         items.clear();
         items.addAll(movies);
         notifyDataSetChanged();
     }
 
-    public List<Movie_> getMovies(){
+    public List<Movie_> getMovies() {
         return items;
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder{
+    class MovieViewHolder extends RecyclerView.ViewHolder {
 
         final TextView nameTextView;
         final RatingBar movieRating;
@@ -141,8 +142,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     @Override
                     public void onClick(View v) {
                         movie.uid = u.id;
-                        
+
                         if (!adminLogOn) {
+                            if (u.money - movie.price < 0) {
+                                Toast.makeText(v.getContext(), "You don't have enough money to buy this movie", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             u.money = u.money - movie.price;
                             moneyInterface.onBuyClick(u.money);
                         }

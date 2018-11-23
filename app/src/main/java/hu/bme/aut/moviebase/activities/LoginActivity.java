@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             Thread.sleep(500);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         setTheme(R.style.AppTheme);
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 try {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                     }
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                if(etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")){
+                if (etEmailAddress.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin")) {
                     Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
                     intent.putExtra("admin", true);
                     startActivity(intent);
@@ -91,28 +91,28 @@ public class LoginActivity extends AppCompatActivity {
 
                 loadItemsInBackground();
 
-               if(users.isEmpty()){
-                   Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
-               }
+                if (users.isEmpty()) {
+                    Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
+                }
 
-               for(User u : users) {
-                   if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
-                       Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
-                       intent.putExtra("userdata", u);
-                       intent.putExtra("admin",false);
-                       startActivity(intent);
-                       break;
-                   }else{
-                       Snackbar.make(findViewById(android.R.id.content), R.string.wrong_email_password, Snackbar.LENGTH_LONG).show();
-                   }
-               }
+                for (User u : users) {
+                    if (etEmailAddress.getText().toString().equals(u.email) && etPassword.getText().toString().equals(u.password)) {
+                        Intent intent = new Intent(LoginActivity.this, MovieListActivity.class);
+                        intent.putExtra("userdata", u);
+                        intent.putExtra("admin", false);
+                        startActivity(intent);
+                        break;
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content), R.string.wrong_email_password, Snackbar.LENGTH_LONG).show();
+                    }
+                }
             }
         });
 
         btnX1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(etEmailAddress.getText().toString().isEmpty())){
+                if (!(etEmailAddress.getText().toString().isEmpty())) {
                     etEmailAddress.setText(EMPTY_STRING);
                 }
             }
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         btnX2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(etPassword.getText().toString().isEmpty())){
+                if (!(etPassword.getText().toString().isEmpty())) {
                     etPassword.setText(EMPTY_STRING);
                 }
             }
@@ -139,8 +139,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if(hasFocus){
-            Rotate3dAnimation anim = new Rotate3dAnimation(0,0,360,0,0,0);
+        if (hasFocus) {
+            Rotate3dAnimation anim = new Rotate3dAnimation(0, 0, 360, 0, 0, 0);
             anim.setInterpolator(new LinearInterpolator());
             anim.setDuration(2250);
             anim.setRepeatCount(Animation.INFINITE);
@@ -153,13 +153,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             protected List<User> doInBackground(Void... voids) {
-                users =  database.userDao().getAll();
+                users = database.userDao().getAll();
                 return users;
             }
         }.execute();
-        try{
+        try {
             users = execute.get();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

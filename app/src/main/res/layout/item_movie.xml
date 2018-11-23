@@ -17,25 +17,25 @@
         android:clickable="true"
         android:focusable="true">
 
-    <TextView
-        android:id="@+id/tvMovieName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Karib tenger kalózai"
-        android:textColor="@color/red"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:focusable="true" />
+        <TextView
+            android:id="@+id/tvMovieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Karib tenger kalózai"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:focusable="true" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:theme="@style/RatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="0.5"
-        android:isIndicator="true"
-        android:focusable="true" />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:theme="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            android:focusable="true" />
 
     </LinearLayout>
 

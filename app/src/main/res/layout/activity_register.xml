@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:textSize="28sp"
         android:layout_gravity="center"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <TextView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:layout_marginRight="5dp"
         android:textColor="@color/color_toolbar"
         android:textStyle="bold"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,19 +53,19 @@
             app:passwordToggleTint="@color/color_toolbar"
             android:layout_width="match_parent">
 
-        <EditText
-            android:id="@+id/passwordRegister"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="@string/enter_password"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:background="@drawable/rounded_edittext"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:importantForAutofill="no" />
+            <EditText
+                android:id="@+id/passwordRegister"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/enter_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:importantForAutofill="no" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -74,10 +74,10 @@
             android:layout_height="match_parent"
             android:paddingTop="10dp">
 
-        <CheckBox
-            android:id="@+id/cbAgree"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+            <CheckBox
+                android:id="@+id/cbAgree"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                 android:text="@string/btn_cancel"
                 android:layout_marginEnd="10dp"
                 style="@style/AppTheme"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnOk"
@@ -114,7 +114,7 @@
                 android:text="@string/btn_ok"
                 android:layout_marginEnd="10dp"
                 style="@style/AppTheme"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

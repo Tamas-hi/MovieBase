@@ -9,8 +9,7 @@
     tools:showIn="@layout/activity_movie_list"
     android:background="@color/black">
 
-    <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/MainRecyclerView"
         android:layout_width="match_parent"

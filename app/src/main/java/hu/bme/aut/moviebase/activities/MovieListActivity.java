@@ -38,7 +38,7 @@ import hu.bme.aut.moviebase.data.User;
 import hu.bme.aut.moviebase.fragments.NewMovieDialogFragment;
 
 
-public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface, MovieAdapter.BuyMovieClickListener{
+public class MovieListActivity extends AppCompatActivity implements NewMovieDialogFragment.NewMovieDialogListener, MovieAdapter.MovieItemClickListener, MoneyInterface, MovieAdapter.BuyMovieClickListener {
 
 
     private static MovieAdapter adapter;
@@ -58,7 +58,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         adminLogOn = intent.getBooleanExtra("admin", false);
 
         tvMoney = findViewById(R.id.tvMoney);
-        if(!adminLogOn) {
+        if (!adminLogOn) {
             tvMoney.setText(String.valueOf(u.money));
         }
 
@@ -72,7 +72,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
         database = MovieDatabase.getDatabase(getApplicationContext());
 
-        if(adminLogOn) {
+        if (adminLogOn) {
             btnCollection.setVisibility(View.INVISIBLE);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +85,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
             btnUsers.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
                     final ViewGroup nullView = null;
                     final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.user_delete, nullView);
@@ -94,7 +94,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                     final Button btnDelete = popupView.findViewById(R.id.btnDelete);
                     final Button btnDeleteAll = popupView.findViewById(R.id.btnDeleteAll);
 
-                    popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
+                    popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
                     popupWindow.setFocusable(true);
                     popupWindow.update();
 
@@ -102,11 +102,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                         @Override
                         public void onClick(View v) {
                             loadUsersInBackground();
-                            if(allUsers.isEmpty()) {
+                            if (allUsers.isEmpty()) {
                                 Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
                                 popupWindow.dismiss();
-                                }
-                            else {
+                            } else {
                                 deleteAllUsersInBackground();
                                 Snackbar.make(findViewById(android.R.id.content), R.string.all_deleted, Snackbar.LENGTH_LONG).show();
                                 popupWindow.dismiss();
@@ -120,30 +119,27 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                             String email = etUserEmail.getText().toString();
                             loadUsersInBackground();
 
-                            if(allUsers.isEmpty()) {
+                            if (allUsers.isEmpty()) {
                                 Snackbar.make(findViewById(android.R.id.content), R.string.no_registered_user, Snackbar.LENGTH_LONG).show();
                                 popupWindow.dismiss();
-                            }
-
-                            else {
-                            for(User u: allUsers) {
-                                if (Objects.requireNonNull(u.email).equals(email)) {
-                                    database.userDao().delete(u);
-                                    popupWindow.dismiss();
-                                    Snackbar.make(findViewById(android.R.id.content), R.string.user_deleted, Snackbar.LENGTH_LONG).show();
-                                    break;
-                                } else {
-                                    Snackbar.make(findViewById(android.R.id.content), R.string.user_not_found, Snackbar.LENGTH_LONG).show();
-                                    popupWindow.dismiss();
+                            } else {
+                                for (User u : allUsers) {
+                                    if (Objects.requireNonNull(u.email).equals(email)) {
+                                        onUserDeleted(u);
+                                        popupWindow.dismiss();
+                                        Snackbar.make(findViewById(android.R.id.content), R.string.user_deleted, Snackbar.LENGTH_LONG).show();
+                                        break;
+                                    } else {
+                                        Snackbar.make(findViewById(android.R.id.content), R.string.user_not_found, Snackbar.LENGTH_LONG).show();
+                                        popupWindow.dismiss();
+                                    }
                                 }
-                            }
                             }
                         }
                     });
                 }
             });
-        }
-        else{
+        } else {
             fab.hide();
             btnUsers.setVisibility(View.INVISIBLE);
         }
@@ -165,7 +161,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        if(!adminLogOn){
+        if (!adminLogOn) {
             menu.getItem(2).setVisible(false);
         }
         return true;
@@ -173,12 +169,12 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.sortByTitle:
-                Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
+                Collections.sort(adapter.getMovies(), new Comparator<Movie_>() {
                     @Override
-                    public int compare(Movie_ m1, Movie_ m2){
+                    public int compare(Movie_ m1, Movie_ m2) {
                         return m1.name.compareToIgnoreCase(m2.name);
                     }
                 });
@@ -186,9 +182,9 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 break;
 
             case R.id.sortByRating:
-                Collections.sort(adapter.getMovies(), new Comparator<Movie_>(){
+                Collections.sort(adapter.getMovies(), new Comparator<Movie_>() {
                     @Override
-                    public int compare(Movie_ m1, Movie_ m2){
+                    public int compare(Movie_ m1, Movie_ m2) {
                         return (-Float.compare(m1.rating, m2.rating));
                     }
                 });
@@ -201,13 +197,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                 break;
 
             case R.id.about:
-                LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
                 final ViewGroup nullView = null;
                 final View popupView = Objects.requireNonNull(inflater).inflate(R.layout.popup_window, nullView);
                 final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                popupWindow.showAtLocation(popupView, Gravity.CENTER, 0,0);
+                popupWindow.showAtLocation(popupView, Gravity.BOTTOM, 0, 0);
 
                 Button btnAboutOk = popupView.findViewById(R.id.btnAboutOk);
                 btnAboutOk.setOnClickListener(new View.OnClickListener() {
@@ -223,14 +219,14 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
-        adapter = new MovieAdapter(this,this,this, u, adminLogOn);
+        adapter = new MovieAdapter(this, this, this, u, adminLogOn);
         loadItemsInBackground();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        if(adminLogOn) {
+        if (adminLogOn) {
             ItemTouchHelper.Callback callback =
                     new MovieTouchHelperCallback(adapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -253,11 +249,11 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         }.execute();
     }
 
-    private static void onAllItemDeleted(){
-        new AsyncTask<Void, Void, Boolean>(){
+    private static void onAllItemDeleted() {
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
-            protected Boolean doInBackground(Void... voids){
+            protected Boolean doInBackground(Void... voids) {
                 database.movieDao().deleteAll();
                 return true;
             }
@@ -267,15 +263,27 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
     @Override
     public void onItemDeleted(final Movie_ item) {
-        new AsyncTask<Void, Void, Boolean>(){
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
-            protected Boolean doInBackground(Void... voids){
+            protected Boolean doInBackground(Void... voids) {
                 database.movieDao().deleteItem(item);
                 return true;
             }
         }.execute();
     }
+
+    private static void onUserDeleted(final User item) {
+        new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                database.userDao().delete(item);
+                return true;
+            }
+        }.execute();
+    }
+
 
     @Override
     public void onMovieCreated(final Movie_ newMovie) {
@@ -295,7 +303,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.exit)
                 .setMessage(R.string.log_off)
@@ -305,7 +313,7 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
                         finish();
                     }
                 })
-                .setNegativeButton(R.string.no,null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 
@@ -315,13 +323,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         updateMoneyInBackground();
     }
 
-    private static void updateMoneyInBackground(){
-        new AsyncTask<Void, Void, Boolean>(){
+    private static void updateMoneyInBackground() {
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
-            protected Boolean doInBackground(Void... voids){
+            protected Boolean doInBackground(Void... voids) {
                 User deleted = database.userDao().findUserById(u.id);
-                database.userDao().deleteRow(deleted.id);
+                database.userDao().delete(deleted);
                 database.userDao().insert(u);
                 return true;
             }
@@ -342,10 +350,10 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
         }.execute();
     }
 
-    private static void deleteAllUsersInBackground(){
-        new AsyncTask<Void, Void, Boolean>(){
+    private static void deleteAllUsersInBackground() {
+        new AsyncTask<Void, Void, Boolean>() {
             @Override
-            protected Boolean doInBackground(Void... voids){
+            protected Boolean doInBackground(Void... voids) {
                 database.userDao().deleteAll();
                 return true;
             }
@@ -357,13 +365,13 @@ public class MovieListActivity extends AppCompatActivity implements NewMovieDial
 
             @Override
             protected List<User> doInBackground(Void... voids) {
-                allUsers =  database.userDao().getAll();
+                allUsers = database.userDao().getAll();
                 return allUsers;
             }
         }.execute();
-        try{
+        try {
             allUsers = execute.get();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

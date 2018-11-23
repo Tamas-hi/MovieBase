@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/movie_name"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/MovieNameEditText"
@@ -21,14 +20,14 @@
         android:textColor="@color/orange"
         android:importantForAutofill="no"
         tools:ignore="LabelFor"
-        android:inputType="text"/>
+        android:inputType="text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/category_2"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <Spinner
         android:id="@+id/MovieCategorySpinner"
@@ -40,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/length_in_minutes"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/MovieLengthEditText"
@@ -72,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/price"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/MoviePriceEditText"

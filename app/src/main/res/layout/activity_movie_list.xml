@@ -42,7 +42,7 @@
                 android:text="@string/max_money"
                 android:textSize="18sp"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -56,36 +56,36 @@
         android:orientation="horizontal"
         android:layout_gravity="bottom">
 
-    <Button
-        android:id="@+id/btnCollection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "@string/my_collection"
-        android:background="@drawable/rounded_button_inverse"
-        android:textColor="@color/black"
-        android:layout_marginStart="16dp"
-        android:layout_alignParentStart="true"/>
+        <Button
+            android:id="@+id/btnCollection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_collection"
+            android:background="@drawable/rounded_button_inverse"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/btnUsers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button_inverse"
-        android:textColor="@color/black"
-        android:text="@string/users"
-        android:layout_marginStart="16dp"
-        android:layout_centerInParent="true" />
+        <Button
+            android:id="@+id/btnUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_inverse"
+            android:textColor="@color/black"
+            android:text="@string/users"
+            android:layout_marginStart="16dp"
+            android:layout_centerInParent="true" />
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        app:srcCompat="@drawable/ic_add_black_36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        tools:ignore="RelativeOverlap" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:srcCompat="@drawable/ic_add_black_36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
 

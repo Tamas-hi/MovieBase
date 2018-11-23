@@ -30,26 +30,26 @@ public class NewMovieDialogFragment extends DialogFragment {
     private EditText priceEditText;
     private NumberPicker numberPicker;
 
-    public interface NewMovieDialogListener{
+    public interface NewMovieDialogListener {
         void onMovieCreated(Movie_ newMovie);
     }
 
     private NewMovieDialogListener listener;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState){
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FragmentActivity activity = getActivity();
-        if(activity instanceof NewMovieDialogListener){
+        if (activity instanceof NewMovieDialogListener) {
             listener = (NewMovieDialogListener) activity;
-        }else{
+        } else {
             throw new RuntimeException(getString(R.string.exception_error));
         }
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState){
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.new_movie)
                 .setView(getContentView())
@@ -64,13 +64,13 @@ public class NewMovieDialogFragment extends DialogFragment {
                 .create();
     }
 
-    private View getContentView(){
-        final ViewGroup nullParent= null;
-        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_movie,nullParent);
+    private View getContentView() {
+        final ViewGroup nullParent = null;
+        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_movie, nullParent);
 
         nameEditText = contentView.findViewById(R.id.MovieNameEditText);
         categorySpinner = contentView.findViewById(R.id.MovieCategorySpinner);
-        categorySpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.category_items)));
+        categorySpinner.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.category_items)));
         lengthEditText = contentView.findViewById(R.id.MovieLengthEditText);
         descriptionEditText = contentView.findViewById(R.id.MovieDescriptionEditText);
         priceEditText = contentView.findViewById(R.id.MoviePriceEditText);
@@ -83,26 +83,26 @@ public class NewMovieDialogFragment extends DialogFragment {
         return contentView;
     }
 
-    private boolean isValid(){
+    private boolean isValid() {
         return nameEditText.getText().length() > 0;
     }
 
-    private Movie_ getMovie(){
+    private Movie_ getMovie() {
         Movie_ movie = new Movie_();
         movie.name = nameEditText.getText().toString();
         movie.category = Movie_.Category.getByOrdinal(categorySpinner.getSelectedItemPosition());
 
-        try{
+        try {
             movie.length = Integer.parseInt(lengthEditText.getText().toString());
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             movie.length = 0;
         }
 
         movie.description = descriptionEditText.getText().toString();
 
-        try{
+        try {
             movie.price = Integer.parseInt(priceEditText.getText().toString());
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             movie.price = 0;
         }
 

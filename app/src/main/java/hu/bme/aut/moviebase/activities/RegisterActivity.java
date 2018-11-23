@@ -1,5 +1,6 @@
 package hu.bme.aut.moviebase.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +20,9 @@ import hu.bme.aut.moviebase.data.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private List<User> users;
+    private static List<User> users;
     private static final int START_MONEY = 30000;
-    private MovieDatabase database;
+    private static MovieDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
                     }
@@ -68,26 +69,53 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(!(cbAgree.isChecked())) {
+                if (!(cbAgree.isChecked())) {
                     Snackbar.make(findViewById(android.R.id.content), R.string.cb_checked, Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
-                users = database.userDao().getAll();
+                loadItemsInBackground();
 
                 User u = new User(emailRegister.getText().toString(), passwordRegister.getText().toString(), START_MONEY);
 
-                for(User user : users) {
+                for (User user : users) {
                     if (emailRegister.getText().toString().equals(user.email)) {
                         Toast.makeText(getBaseContext(), R.string.user_exists, Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
 
-                database.userDao().insert(u);
+                insertUserInBackground(u);
                 Toast.makeText(getBaseContext(), R.string.reg_success, Toast.LENGTH_LONG).show();
                 finish();
             }
         });
+    }
+
+    private static void loadItemsInBackground() {
+        AsyncTask<Void, Void, List<User>> execute = new AsyncTask<Void, Void, List<User>>() {
+
+            @Override
+            protected List<User> doInBackground(Void... voids) {
+                users = database.userDao().getAll();
+                return users;
+            }
+        }.execute();
+        try {
+            users = execute.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void insertUserInBackground(final User u) {
+        new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                database.userDao().insert(u);
+                return true;
+            }
+        }.execute();
     }
 }

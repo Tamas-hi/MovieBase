@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity = "start|center_horizontal"
+            android:layout_gravity="start|center_horizontal"
             android:src="@drawable/ic_icons8_circled_right_24"
             android:contentDescription="@string/arrowtoright"
             android:layout_marginStart="16dp" />
@@ -26,18 +26,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "@string/text_app"
+            android:text="@string/text_app"
             android:textColor="@color/black"
             android:textSize="28sp"
-            android:layout_gravity = "center_horizontal"
-            android:textStyle="bold"
-            />
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_icons8_go_back_24"
-            android:layout_gravity = "end|center_horizontal"
+            android:layout_gravity="end|center_horizontal"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/arrowtoleft" />
 
@@ -51,7 +50,7 @@
         android:src="@drawable/popcorn"
         android:contentDescription="@string/popcorn_3d"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -121,7 +120,7 @@
             android:layout_gravity="end|bottom"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/secondx"
-            android:layout_weight="7"/>
+            android:layout_weight="7" />
 
     </LinearLayout>
 
@@ -139,7 +138,7 @@
             android:text="@string/register"
             android:layout_marginEnd="10dp"
             style="@style/AppTheme"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnSignIn"
@@ -150,7 +149,7 @@
             android:text="@string/sign_in"
             android:layout_marginEnd="10dp"
             style="@style/AppTheme"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

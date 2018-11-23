@@ -11,11 +11,11 @@ import android.os.Parcelable;
 @Entity(tableName = "movie")
 public class Movie_ implements Parcelable {
 
-    public Movie_(){
+    public Movie_() {
 
     }
 
-    private Movie_(Parcel in){
+    private Movie_(Parcel in) {
         id = in.readLong();
         name = in.readString();
         category = (Category) in.readSerializable();
@@ -54,7 +54,7 @@ public class Movie_ implements Parcelable {
     }
 
 
-    public enum Category{
+    public enum Category {
         ACTION, DOCUMENTARY, HORROR, COMEDY, ROMANCE;
 
 

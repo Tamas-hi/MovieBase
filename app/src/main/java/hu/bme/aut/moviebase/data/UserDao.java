@@ -22,9 +22,6 @@ public interface UserDao {
     @Delete
     void delete(User user);
 
-    @Query("DELETE FROM user WHERE id = :id")
-    void deleteRow(long id);
-
     @Query("DELETE FROM user")
     void deleteAll();
 }

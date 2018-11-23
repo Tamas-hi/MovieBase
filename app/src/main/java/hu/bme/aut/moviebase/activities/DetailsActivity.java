@@ -68,11 +68,11 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    private static void saveRatingInBackground(){
-        new AsyncTask<Void, Void, Boolean>(){
+    private static void saveRatingInBackground() {
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
-            protected Boolean doInBackground(Void... voids){
+            protected Boolean doInBackground(Void... voids) {
                 Movie_ deleted = database.movieDao().findMovieById(movie.id);
                 database.movieDao().deleteItem(deleted);
                 movie.rating = originalRating;
@@ -83,8 +83,8 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-      super.onBackPressed();
-      MovieListActivity.loadItemsInBackground();
+    public void onBackPressed() {
+        super.onBackPressed();
+        MovieListActivity.loadItemsInBackground();
     }
 }

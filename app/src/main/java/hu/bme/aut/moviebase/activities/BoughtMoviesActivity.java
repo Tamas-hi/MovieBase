@@ -20,7 +20,7 @@ import hu.bme.aut.moviebase.data.MovieDatabase;
 import hu.bme.aut.moviebase.data.Movie_;
 import hu.bme.aut.moviebase.data.User;
 
-public class BoughtMoviesActivity extends AppCompatActivity{
+public class BoughtMoviesActivity extends AppCompatActivity {
 
     private static MovieDatabase database;
     private static MovieAdapter adapter;
@@ -63,18 +63,18 @@ public class BoughtMoviesActivity extends AppCompatActivity{
 
             @Override
             protected void onPostExecute(List<Movie_> movies) {
-               adapter.update(movies);
+                adapter.update(movies);
             }
         }.execute();
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
         BoughtMovies = false;
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         final RecyclerView recyclerView = findViewById(R.id.MainRecyclerView);
         adapter = new MovieAdapter(BoughtMovies);
         loadItemsInBackground();

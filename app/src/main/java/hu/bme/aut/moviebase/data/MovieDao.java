@@ -25,9 +25,6 @@ public interface MovieDao {
     @Query("DELETE FROM movie")
     void deleteAll();
 
-    @Query("DELETE FROM movie WHERE id = :id")
-    void deleteRow(long id);
-
     @Query("SELECT * FROM movie WHERE id = :id")
     Movie_ findMovieById(long id);
 }

@@ -17,24 +17,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "@string/status_logged_in"
+                android:text="@string/status_logged_in"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
-                android:layout_gravity = "start|center"
-                android:textStyle="bold"
-                />
+                android:layout_gravity="start|center"
+                android:textStyle="bold" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_dollar_sign"
                 android:layout_marginStart="40dp"
                 android:contentDescription="@string/dollar_sign" />
+
             <TextView
                 android:id="@+id/tvMoney"
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:text="@string/max_money"
                 android:textSize="18sp"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -55,8 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:text = "@string/go_back"
+        android:text="@string/go_back"
         android:background="@drawable/rounded_button_inverse"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black" />
 
 </android.support.design.widget.CoordinatorLayout>
