@@ -1,110 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/movie_name"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/MovieNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLength="25"
-        android:textColor="@color/orange"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor"
-        android:inputType="text" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/category_2"
-        android:textColor="@color/black" />
-
-    <Spinner
-        android:id="@+id/MovieCategorySpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/length_in_minutes"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/MovieLengthEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:textColor="@color/orange"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/description_2"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/MovieDescriptionEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/orange"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/price"
-        android:textColor="@color/black" />
-
-    <EditText
-        android:id="@+id/MoviePriceEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:textColor="@color/orange"
-        android:importantForAutofill="no"
-        tools:ignore="LabelFor" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/rating"
+            android:text="@string/movie_name"
             android:textColor="@color/black" />
 
-        <NumberPicker
-            android:id="@+id/RatingPicker"
+        <EditText
+            android:id="@+id/MovieNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="25"
+            android:textColor="@color/orange"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor"
+            android:inputType="text" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp">
-        </NumberPicker>
+            android:layout_marginTop="16dp"
+            android:text="@string/category_2"
+            android:textColor="@color/black" />
 
+        <Spinner
+            android:id="@+id/MovieCategorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/length_in_minutes"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/MovieLengthEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/orange"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/description_2"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/MovieDescriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/price"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/MoviePriceEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/orange"
+            android:importantForAutofill="no"
+            tools:ignore="LabelFor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/rating"
+                android:textColor="@color/black" />
+
+            <NumberPicker
+                android:id="@+id/RatingPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp" />
+
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
+</ScrollView>

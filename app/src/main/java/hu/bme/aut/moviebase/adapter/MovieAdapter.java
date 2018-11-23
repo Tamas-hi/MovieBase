@@ -159,59 +159,59 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             }
 
 
-                nameTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            nameTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    if (BoughtMovies) {
+                        intent.putExtra("hideRating", true);
+                        intent.putExtra("MovieItem", movie);
+                        context.startActivity(intent);
+                    } else {
+                        intent.putExtra("hideRating", false);
+                        intent.putExtra("MovieItem", movie);
+                        context.startActivity(intent);
+                    }
+                }
+            });
+
+            movieRating.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, DetailsActivity.class);
-                        if(BoughtMovies){
-                            intent.putExtra("hideRating",true);
+                        if (BoughtMovies) {
+                            intent.putExtra("hideRating", true);
                             intent.putExtra("MovieItem", movie);
                             context.startActivity(intent);
-                        }else {
+                        } else {
                             intent.putExtra("hideRating", false);
                             intent.putExtra("MovieItem", movie);
                             context.startActivity(intent);
                         }
                     }
-                });
+                    return true;
+                }
+            });
 
-                movieRating.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            Context context = v.getContext();
-                            Intent intent = new Intent(context, DetailsActivity.class);
-                            if(BoughtMovies){
-                                intent.putExtra("hideRating",true);
-                                intent.putExtra("MovieItem", movie);
-                                context.startActivity(intent);
-                            }else {
-                                intent.putExtra("hideRating", false);
-                                intent.putExtra("MovieItem", movie);
-                                context.startActivity(intent);
-                            }
-                        }
-                        return true;
+            priceTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    if (BoughtMovies) {
+                        intent.putExtra("hideRating", true);
+                        intent.putExtra("MovieItem", movie);
+                        context.startActivity(intent);
+                    } else {
+                        intent.putExtra("hideRating", false);
+                        intent.putExtra("MovieItem", movie);
+                        context.startActivity(intent);
                     }
-                });
-
-                priceTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, DetailsActivity.class);
-                        if(BoughtMovies){
-                            intent.putExtra("hideRating",true);
-                            intent.putExtra("MovieItem", movie);
-                            context.startActivity(intent);
-                        }else {
-                            intent.putExtra("hideRating", false);
-                            intent.putExtra("MovieItem", movie);
-                            context.startActivity(intent);
-                        }
-                    }
-                });
+                }
+            });
 
         }
     }

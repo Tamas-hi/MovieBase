@@ -52,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         lengthTextView.setText(String.format("%s minute", String.valueOf(length)));
         descTextView.setText(description);
 
-        if(rating){
+        if (rating) {
             btnSaveRating.setVisibility(View.INVISIBLE);
             ratingText.setVisibility(View.INVISIBLE);
             ratingBar.setVisibility(View.INVISIBLE);
