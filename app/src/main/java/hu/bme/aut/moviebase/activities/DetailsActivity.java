@@ -51,7 +51,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         nameTextView.setText(name);
         categoryTextView.setText(category.toString());
-        lengthTextView.setText(String.valueOf(length));
+        lengthTextView.setText(String.format("%s minute", String.valueOf(length)));
         descTextView.setText(description);
 
         if(rating){
@@ -65,7 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
                 float newRating = ratingBar.getRating();
                 originalRating = (originalRating + newRating) / 2;
                 saveRatingInBackground();
-                Snackbar.make(findViewById(android.R.id.content), getString(R.string.new_rating) + originalRating, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.new_rating) + originalRating, Snackbar.LENGTH_SHORT).show();
             }
         });
 

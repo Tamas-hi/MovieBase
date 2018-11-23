@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loadItemsInBackground();
 
+        textClock.setFormat12Hour(null);
         textClock.setFormat24Hour(getString(R.string.dateFormat));
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
